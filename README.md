@@ -8,15 +8,10 @@ SEE Conf（蚂蚁终端体验科技大会）2026 官方网站。大会将于 202
 
 网站基于 Vue 3 单页应用构建，包含以下内容板块：
 
-- **主视觉横幅（HeroBanner）**：大会主题展示，配合 ShaderCanvas 着色器动画呈现视觉主图
-- **讲者介绍（SpeakersSection）**：大会讲者与出品人，来自蚂蚁集团、LobeHub、Rokid、Clacky.ai、ZenMux.ai、Tripo VAST 等团队
-- **大会日程（AgendaSection）**：主会场日程，以及五大平行专场分会场日程
-  - AI Coding 专场 —— AI 驱动的研发流程与智能编码
-  - 基础前端专场 —— 微前端、构建工具链、设计系统与性能监控
-  - 可视化专场 —— 大数据可视化、3D 交互、创意编程与动效设计
-  - 终端技术专场 —— 端侧 AI Agent、跨端渲染、视觉大模型与端智能
-  - SEE NEXT 专场 —— AI 原生体验、空间计算与体验技术的未来
-- **技术展台（ExpoSection）**：蚂蚁开源生态项目展示，包括 Ant Design、Umi、qiankun、Dva、L7、G6、AntV、WeaveFox 等
+- **主视觉横幅（HeroBanner）**：大会主题展示
+- **讲者介绍（SpeakersSection）**：大会讲者与出品人
+- **大会日程（AgendaSection）**：主会场日程，以及分会场日程
+- **技术展台（ExpoSection）**：蚂蚁开源生态项目展示
 - **参会指南（GuideSection）**：大会时间地点、报名等参会信息
 - **往届回顾**：历届 SEE Conf 链接（2018 - 2025）
 
@@ -65,7 +60,3 @@ seeconf2026/
         ├── GuideSection.vue    # 参会指南
         └── TheFooter.vue       # 页脚
 ```
-
-## 数据配置
-
-大会的日程、讲者、专场、出品人、开源项目等信息统一在 `src/data.js` 中维护，修改相关数据即可更新网站内容，无需改动组件代码。
