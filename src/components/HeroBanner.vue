@@ -34,7 +34,7 @@ const titleParts = [conferenceInfo.title.slice(0, 6), conferenceInfo.title.slice
         </p>
         <p class="hero-description">{{ conferenceInfo.slogan }}</p>
       </div>
-      <a class="hero-buy-btn" href="https://www.bagevent.com/event/SEEConf2026" target="_blank" rel="noopener" @contextmenu="onControlContextMenu">预约购票<span class="btn-arrow">↗</span></a>
+      <a class="hero-buy-btn" href="https://www.bagevent.com/event/SEEConf2026" target="_blank" rel="noopener" @contextmenu="onControlContextMenu">立即购票<span class="btn-arrow">↗</span></a>
       <p class="hero-date"><span class="date-loc">杭州 · 蚂蚁 A 空间</span><span class="date-sep"> / </span>{{ conferenceInfo.date }}</p>
     </div>
 
