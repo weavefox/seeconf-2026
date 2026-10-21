@@ -1,7 +1,10 @@
 <script setup>
+import { ref } from 'vue'
 import { conferenceInfo } from '../data.js'
 import ShaderCanvas from './ShaderCanvas.vue'
 import HeroCursor from './HeroCursor.vue'
+
+const watercolorReady = ref(false)
 
 const scrollTo = (anchor) => {
   const el = document.getElementById(anchor)
@@ -18,8 +21,8 @@ const titleParts = [conferenceInfo.title.slice(0, 6), conferenceInfo.title.slice
 </script>
 
 <template>
-  <section id="hero" class="hero">
-    <ShaderCanvas />
+  <section id="hero" class="hero" :class="{ 'hero-watercolor-ready': watercolorReady }">
+    <ShaderCanvas @ready-change="watercolorReady = $event" />
     <HeroCursor />
     <div class="hero-interaction" aria-hidden="true"></div>
     <!-- Main hero text -->
@@ -178,8 +181,8 @@ const titleParts = [conferenceInfo.title.slice(0, 6), conferenceInfo.title.slice
 }
 
 @media (hover: none) and (pointer: coarse) {
-  .hero-interaction,
-  .hero-buy-btn { touch-action: pinch-zoom; }
+  .hero-watercolor-ready .hero-interaction,
+  .hero-watercolor-ready .hero-buy-btn { touch-action: pinch-zoom; }
   .hero-scroll-hint { touch-action: pan-y pinch-zoom; }
 }
 

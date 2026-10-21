@@ -33,8 +33,8 @@ export function mountWatercolor(canvas, onState) {
   const abort = new AbortController()
   const listeners = { signal: abort.signal, passive: true }
   let engine, material, passIndices
+  let observer, resizeObserver
   let disposed = false
-  let failed = false
   let contextLost = false
   let sourceReady = false
   let visible = true
@@ -119,32 +119,36 @@ export function mountWatercolor(canvas, onState) {
 
   function resize() {
     if (!engine || disposed || contextLost) return
-    const w = hero.clientWidth, h = hero.clientHeight
-    if (!w || !h) return
-    const ratio = Math.min(devicePixelRatio || 1, 1.75)
-    const bufferWidth = Math.round(w * ratio), bufferHeight = Math.round(h * ratio)
-    if (w !== width || h !== height || bufferWidth !== canvas.width || bufferHeight !== canvas.height) {
-      width = w
-      height = h
-      engine.canvas.setResolution(bufferWidth, bufferHeight)
-      const longest = coarse.matches ? 512 : 1024
-      simulationWidth = Math.max(24, Math.round(longest * width / Math.max(width, height)))
-      simulationHeight = Math.max(24, Math.round(longest * height / Math.max(width, height)))
-      releaseTargets()
-      velocity = pair(simulationWidth, simulationHeight)
-      inkField = pair(simulationWidth, simulationHeight, true)
-      pressureField = pair(simulationWidth, simulationHeight)
-      divergenceField = makeTarget(simulationWidth, simulationHeight)
-      flowX = makeTarget(simulationWidth, simulationHeight, false, true)
-      flowY = makeTarget(simulationWidth, simulationHeight, false, true)
-      sharpTarget = makeTarget(bufferWidth, bufferHeight, true)
-      blurX = makeTarget(Math.ceil(bufferWidth / 2), Math.ceil(bufferHeight / 2), true)
-      blurY = makeTarget(blurX.width, blurX.height, true)
-      canvas.dataset.simulation = `${simulationWidth}x${simulationHeight}`
-      clearPending = artworkDirty = true
-      resetPointer()
+    try {
+      const w = hero.clientWidth, h = hero.clientHeight
+      if (!w || !h) return
+      const ratio = Math.min(devicePixelRatio || 1, 1.75)
+      const bufferWidth = Math.round(w * ratio), bufferHeight = Math.round(h * ratio)
+      if (w !== width || h !== height || bufferWidth !== canvas.width || bufferHeight !== canvas.height) {
+        width = w
+        height = h
+        engine.canvas.setResolution(bufferWidth, bufferHeight)
+        const longest = coarse.matches ? 512 : 1024
+        simulationWidth = Math.max(24, Math.round(longest * width / Math.max(width, height)))
+        simulationHeight = Math.max(24, Math.round(longest * height / Math.max(width, height)))
+        releaseTargets()
+        velocity = pair(simulationWidth, simulationHeight)
+        inkField = pair(simulationWidth, simulationHeight, true)
+        pressureField = pair(simulationWidth, simulationHeight)
+        divergenceField = makeTarget(simulationWidth, simulationHeight)
+        flowX = makeTarget(simulationWidth, simulationHeight, false, true)
+        flowY = makeTarget(simulationWidth, simulationHeight, false, true)
+        sharpTarget = makeTarget(bufferWidth, bufferHeight, true)
+        blurX = makeTarget(Math.ceil(bufferWidth / 2), Math.ceil(bufferHeight / 2), true)
+        blurY = makeTarget(blurX.width, blurX.height, true)
+        canvas.dataset.simulation = `${simulationWidth}x${simulationHeight}`
+        clearPending = artworkDirty = true
+        resetPointer()
+      }
+      loadBackground().then(updatePlayback).catch(onError)
+    } catch (error) {
+      onError(error)
     }
-    loadBackground().then(updatePlayback).catch(onError)
   }
 
   function bind(name, texture) {
@@ -197,53 +201,59 @@ export function mountWatercolor(canvas, onState) {
 
   class WatercolorPass extends PostProcessPass {
     onRender(camera, source, destination) {
-      setVector('uTexel', 1 / simulationWidth, 1 / simulationHeight)
-      setVector('uDomain', width / height, 1)
-      material.shaderData.setFloat('uDt', dt)
-      if (clearPending) {
-        for (const target of targets) draw('clear', target)
-        clearPending = false
-      }
-      if (!reduced.matches) simulate()
+      try {
+        setVector('uTexel', 1 / simulationWidth, 1 / simulationHeight)
+        setVector('uDomain', width / height, 1)
+        material.shaderData.setFloat('uDt', dt)
+        if (clearPending) {
+          for (const target of targets) draw('clear', target)
+          clearPending = false
+        }
+        if (!reduced.matches) simulate()
 
-      // The source art is static; only the fluid field needs per-frame updates.
-      if (artworkDirty) {
-        bind('uImage', imageTexture)
-        setVector('uImageSize', imageTexture.width, imageTexture.height)
-        setVector('uResolution', width, height)
-        material.shaderData.setVector2('uImagePosition', imagePosition)
-        draw('display', sharpTarget)
-        bind('uSource', sharpTarget)
-        setVector('uDirection', 2.2 / width, 0)
-        draw('blur', blurX)
-        bind('uSource', blurX)
-        setVector('uDirection', 0, 2.2 / height)
-        draw('blur', blurY)
-        artworkDirty = false
+        // The source art is static; only the fluid field needs per-frame updates.
+        if (artworkDirty) {
+          bind('uImage', imageTexture)
+          setVector('uImageSize', imageTexture.width, imageTexture.height)
+          setVector('uResolution', width, height)
+          material.shaderData.setVector2('uImagePosition', imagePosition)
+          draw('display', sharpTarget)
+          bind('uSource', sharpTarget)
+          setVector('uDirection', 2.2 / width, 0)
+          draw('blur', blurX)
+          bind('uSource', blurX)
+          setVector('uDirection', 0, 2.2 / height)
+          draw('blur', blurY)
+          artworkDirty = false
+        }
+        bind('uSharp', sharpTarget)
+        bind('uBlur', blurY)
+        bind('uAccumulation', flowY)
+        bind('uRevealNoise', revealNoiseTexture)
+        bind('uPaper', paperTexture)
+        bind('uPaperNormal', paperNormalTexture)
+        bind('uDryLut', dryLut.texture)
+        bind('uInkLut', inkLut.texture)
+        setVector('uPaperScale', width / PAPER_TILE_SIZE, height / PAPER_TILE_SIZE)
+        setVector('uPaperTexel', 1 / paperTexture.width, 1 / paperTexture.height)
+        material.shaderData.setFloat('uDrySize', dryLut.size)
+        material.shaderData.setFloat('uInkSize', inkLut.size)
+        material.shaderData.setFloat('uReduced', reduced.matches ? 1 : 0)
+        draw('composite', destination)
+      } catch (error) {
+        onError(error)
       }
-      bind('uSharp', sharpTarget)
-      bind('uBlur', blurY)
-      bind('uAccumulation', flowY)
-      bind('uRevealNoise', revealNoiseTexture)
-      bind('uPaper', paperTexture)
-      bind('uPaperNormal', paperNormalTexture)
-      bind('uDryLut', dryLut.texture)
-      bind('uInkLut', inkLut.texture)
-      setVector('uPaperScale', width / PAPER_TILE_SIZE, height / PAPER_TILE_SIZE)
-      setVector('uPaperTexel', 1 / paperTexture.width, 1 / paperTexture.height)
-      material.shaderData.setFloat('uDrySize', dryLut.size)
-      material.shaderData.setFloat('uInkSize', inkLut.size)
-      material.shaderData.setFloat('uReduced', reduced.matches ? 1 : 0)
-      draw('composite', destination)
     }
   }
 
   function frame(now) {
     frameId = 0
+    if (disposed || contextLost) return
     dt = lastFrame ? Math.min((now - lastFrame) / 1000, 1 / 30) : 1 / 60
     lastFrame = now
     try {
       engine.update()
+      if (disposed) return
       if (firstFrame) {
         firstFrame = false
         onState('galacean-watercolor')
@@ -259,7 +269,7 @@ export function mountWatercolor(canvas, onState) {
     frameId = 0
     lastFrame = 0
     resetPointer()
-    if (sourceReady && backgroundReady && visible && !document.hidden && !disposed && !failed && !contextLost) {
+    if (sourceReady && backgroundReady && visible && !document.hidden && !disposed && !contextLost) {
       frameId = requestAnimationFrame(frame)
     }
   }
@@ -277,17 +287,21 @@ export function mountWatercolor(canvas, onState) {
       image.onload = () => {
         abort.signal.removeEventListener('abort', cancel)
         if (disposed) { resolve(null); return }
-        const texture = new Texture2D(engine, image.width, image.height, TextureFormat.R8G8B8A8, mipmaps, false)
-        texture.wrapModeU = texture.wrapModeV = wrap
-        texture.filterMode = mipmaps ? TextureFilterMode.Trilinear : TextureFilterMode.Bilinear
-        const upload = () => {
-          texture.setImageSource(image, 0, wrap !== TextureWrapMode.Clamp)
-          if (mipmaps) texture.generateMipmaps()
+        try {
+          const texture = new Texture2D(engine, image.width, image.height, TextureFormat.R8G8B8A8, mipmaps, false)
+          texture.wrapModeU = texture.wrapModeV = wrap
+          texture.filterMode = mipmaps ? TextureFilterMode.Trilinear : TextureFilterMode.Bilinear
+          const upload = () => {
+            texture.setImageSource(image, 0, wrap !== TextureWrapMode.Clamp)
+            if (mipmaps) texture.generateMipmaps()
+          }
+          upload()
+          engine.resourceManager.addContentRestorer(new TextureRestorer(texture, upload))
+          assetTextures.add(texture)
+          resolve(texture)
+        } catch (error) {
+          reject(error)
         }
-        upload()
-        engine.resourceManager.addContentRestorer(new TextureRestorer(texture, upload))
-        assetTextures.add(texture)
-        resolve(texture)
       }
       image.onerror = () => {
         abort.signal.removeEventListener('abort', cancel)
@@ -339,44 +353,41 @@ export function mountWatercolor(canvas, onState) {
 
   function onError(error) {
     if (disposed) return
-    failed = true
-    cancelAnimationFrame(frameId)
     onState('static-error')
+    dispose()
     console.error('Watercolor initialization/render failed:', error)
   }
 
-  const observer = new IntersectionObserver(([entry]) => {
-    visible = entry.isIntersecting
-    updatePlayback()
-  })
-  const resizeObserver = new ResizeObserver(resize)
-  observer.observe(hero)
-  resizeObserver.observe(hero)
-  hero.addEventListener('pointermove', onPointer, listeners)
-  hero.addEventListener('pointerdown', event => { resetPointer(); onPointer(event) }, listeners)
-  hero.addEventListener('pointerup', event => { if (event.pointerType === 'touch') resetPointer() }, listeners)
-  hero.addEventListener('pointercancel', resetPointer, listeners)
-  hero.addEventListener('pointerleave', resetPointer, listeners)
-  window.addEventListener('blur', resetPointer, listeners)
-  window.addEventListener('scroll', resetPointer, listeners)
-  window.addEventListener('resize', resize, listeners)
-  document.addEventListener('visibilitychange', updatePlayback, listeners)
-  reduced.addEventListener('change', () => {
-    clearPending = artworkDirty = true
-    updatePlayback()
-  }, listeners)
-
   async function initialize() {
+    observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting
+      updatePlayback()
+    })
+    resizeObserver = new ResizeObserver(resize)
+    observer.observe(hero)
+    resizeObserver.observe(hero)
+    hero.addEventListener('pointermove', onPointer, listeners)
+    hero.addEventListener('pointerdown', event => { resetPointer(); onPointer(event) }, listeners)
+    hero.addEventListener('pointerup', event => { if (event.pointerType === 'touch') resetPointer() }, listeners)
+    hero.addEventListener('pointercancel', resetPointer, listeners)
+    hero.addEventListener('pointerleave', resetPointer, listeners)
+    window.addEventListener('blur', resetPointer, listeners)
+    window.addEventListener('scroll', resetPointer, listeners)
+    window.addEventListener('resize', resize, listeners)
+    document.addEventListener('visibilitychange', updatePlayback, listeners)
+    reduced.addEventListener('change', () => {
+      clearPending = artworkDirty = true
+      updatePlayback()
+    }, listeners)
     engine = await WebGLEngine.create({
       canvas,
       graphicDeviceOptions: { webGLMode: WebGLMode.WebGL2, alpha: false, depth: false, stencil: false },
     })
-    if (disposed) { engine.destroy(); return }
+    if (disposed) { destroyEngine(); return }
     // Sampling support alone does not guarantee renderable float targets.
     if (!canvas.getContext('webgl2').getExtension('EXT_color_buffer_float')) {
       onState('static-unsupported')
-      engine.destroy()
-      engine = null
+      dispose()
       return
     }
     const shader = Shader.find('SEEConf/Watercolor') ?? await engine.resourceManager.load({
@@ -402,6 +413,7 @@ export function mountWatercolor(canvas, onState) {
       updatePlayback()
     })
     resize()
+    if (disposed) return
     const [noise, reveal, paper, normal, dry, ink] = await Promise.all([
       loadImage('https://mdn.alipayobjects.com/rms/afts/img/A*3-RtSp6fzjUAAAAAW0AAAAgAehQnAQ/original/ink-noise.png', { wrap: TextureWrapMode.Repeat }),
       loadImage('https://mdn.alipayobjects.com/rms/afts/img/A*9xrSRo1OAjwAAAAAUqAAAAgAehQnAQ/original/reveal-noise.png', { wrap: TextureWrapMode.Mirror }),
@@ -421,13 +433,24 @@ export function mountWatercolor(canvas, onState) {
     updatePlayback()
   }
 
-  initialize().catch(onError)
-  return () => {
+  function destroyEngine() {
+    try {
+      if (engine && !engine.destroyed) engine.destroy()
+    } catch (error) {
+      console.error('Watercolor cleanup failed:', error)
+    }
+  }
+
+  function dispose() {
+    if (disposed) return
     disposed = true
     abort.abort()
     cancelAnimationFrame(frameId)
-    observer.disconnect()
-    resizeObserver.disconnect()
-    if (engine && !engine.destroyed) engine.destroy()
+    observer?.disconnect()
+    resizeObserver?.disconnect()
+    destroyEngine()
   }
+
+  initialize().catch(onError)
+  return dispose
 }
