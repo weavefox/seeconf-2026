@@ -1,6 +1,6 @@
 # SEE Conf 2026 来啦，创造力复兴，时代的你和我！
 
-<img alt="seeconf logo" href="seeconf.svg" width="16" />SEE Conf 2026 将于 11 月 28 日在杭州 · 蚂蚁 A 空间盛大启幕  👉 大会官网：[点这里](https://seeconf.antgroup.com/)。
+<img alt="seeconf logo" src="seeconf.svg" width="16" /> SEE Conf 2026 将于 11 月 28 日在杭州 · 蚂蚁 A 空间盛大启幕  👉 大会官网：[点这里](https://seeconf.antgroup.com/)。
 
 ![SEE Conf 2026 KV](image.png)
 
