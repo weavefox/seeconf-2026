@@ -1,64 +1,34 @@
-# SEE Conf 2026 官网
+# SEE Conf 2026 来啦，创造力复兴，时代的你和我！
 
-> 创造力复兴，探索 AI 时代的用户体验与工程实践
+<img alt="seeconf logo" href="seeconf.svg" width="16" />SEE Conf 2026 将于 11 月 28 日在杭州 · 蚂蚁 A 空间盛大启幕  👉 大会官网：[点这里](https://seeconf.antgroup.com/)。
 
-![SEE Conf 2026](image.png)
+![SEE Conf 2026 KV](image.png)
 
-SEE Conf（蚂蚁终端体验科技大会）2026 官方网站。大会将于 2026.11.28 在中国·杭州举办。
+SEE Conf 蚂蚁终端体验科技大会，由蚂蚁终端技术委员会主办，是一场融合前沿分享、技术展台与沉浸式互动的科技盛会。
 
-## 内容板块
+SEE 是 Seeking Experience & Engineering 的缩写，意为探索用户体验与工程实践。在这里，我们期待与业界同行共同分享和交流体验科技的最新进展，探讨切磋 AI 时代体验科技的未来发展，共同让生态繁荣共赢。
 
-网站基于 Vue 3 单页应用构建，包含以下内容板块：
+## 大会亮点
 
-- **主视觉横幅（HeroBanner）**：大会主题展示
-- **讲者介绍（SpeakersSection）**：大会讲者与出品人
-- **大会日程（AgendaSection）**：主会场日程，以及分会场日程
-- **技术展台（ExpoSection）**：蚂蚁开源生态项目展示
-- **参会指南（GuideSection）**：大会时间地点、报名等参会信息
-- **往届回顾**：历届 SEE Conf 链接（2018 - 2025）
++ 主题聚焦：「创造力复兴，探索 AI 时代的用户体验与工程实践」
++ 全程一天：30+ 场以上演讲，等你来！ 上午主会场业界大佬云集、下午四大分会场平行展开：
+    - AI 创新体验
+    - 卓越 AI 工程实践
+    - AI 新交互与多端
+    - SEE Next
++ 丰富体验：现场设有 ~20 个技术展台，覆盖技术、产品、体验各个方面，带你近距离交流与产品体验。
++ 乐队表演：科技与激情双重碰撞，「996 x 万塘路 18 号 x 无共识」乐队首度联袂表演，带你 High 翻全场！
 
-## 技术栈
 
-- [Vue 3](https://vuejs.org/) + `<script setup>` 单文件组件
-- [Vite](https://vite.dev/) 构建工具
-- [@tslsmart/font-puhuiti](https://www.npmjs.com/package/@tslsmart/font-puhuiti) 蒲公英字体
 
-## 快速开始
+## 门票信息
 
-```bash
-# 安装依赖
-npm install
++ 购票地址：[https://seeconf.antgroup.com](https://seeconf.antgroup.com/)
++ 超级早年票：79 元/张，仅限 1024 期间
++ 早鸟票：99 元/张
++ 普通票：199 元/张
++ 售票时间：即日起至 2026 年 11 月 24 日
 
-# 启动本地开发服务器
-npm run dev
 
-# 构建生产包
-npm run build
 
-# 本地预览构建产物
-npm run preview
-```
-
-## 目录结构
-
-```
-seeconf2026/
-├── index.html              # 入口 HTML
-├── vite.config.js          # Vite 配置
-├── public/                 # 静态资源
-├── seeconf2026-deploy.zip  # 部署打包产物
-└── src/
-    ├── main.js             # 应用入口
-    ├── App.vue             # 根组件
-    ├── data.js             # 大会数据配置（日程、讲者、专场等）
-    ├── style.css           # 全局样式
-    └── components/         # 页面组件
-        ├── TheNavbar.vue       # 导航栏
-        ├── HeroBanner.vue      # 主视觉横幅
-        ├── ShaderCanvas.vue    # 着色器画布动画
-        ├── SpeakersSection.vue # 讲者介绍
-        ├── AgendaSection.vue   # 大会日程
-        ├── ExpoSection.vue     # 技术展台
-        ├── GuideSection.vue    # 参会指南
-        └── TheFooter.vue       # 页脚
-```
+⚠️ 温馨提示：由于场地容量有限，门票数量有限，先到先得，售完即止！
