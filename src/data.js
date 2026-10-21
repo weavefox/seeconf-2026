@@ -3,7 +3,7 @@
 export const conferenceInfo = {
   name: 'SEE Conf 2026',
   title: '蚂蚁终端体验科技大会',
-  slogan: '创造力复兴 · 探索AI时代的用户体验与工程实践',
+  slogan: '创造力复兴，探索AI时代的用户体验与工程实践',
   date: '2026.11.28',
   location: '中国·杭州',
   venue: '中国·杭州',

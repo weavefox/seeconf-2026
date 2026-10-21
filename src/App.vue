@@ -1,4 +1,5 @@
 <script setup>
+import { useHead } from '@unhead/vue'
 import TheNavbar from './components/TheNavbar.vue'
 import HeroBanner from './components/HeroBanner.vue'
 import AgendaSection from './components/AgendaSection.vue'
@@ -6,6 +7,10 @@ import SpeakersSection from './components/SpeakersSection.vue'
 import ExpoSection from './components/ExpoSection.vue'
 import GuideSection from './components/GuideSection.vue'
 import TheFooter from './components/TheFooter.vue'
+
+useHead({
+  htmlAttrs: { lang: 'zh-CN' },
+})
 </script>
 
 <template>
