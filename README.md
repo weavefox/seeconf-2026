@@ -2,6 +2,8 @@
 
 > 创造力复兴 · 探索 AI 时代的用户体验与工程实践
 
+![SEE Conf 2026](https://mdn.alipayobjects.com/huamei_m96plz/afts/img/KWxXTbzAYu0AAAAAXqAAAAgADiiDAQFr/original)
+
 SEE Conf（蚂蚁终端体验科技大会）2026 官方网站。大会将于 2026.11.28 在中国·杭州举办。
 
 ## 内容板块
