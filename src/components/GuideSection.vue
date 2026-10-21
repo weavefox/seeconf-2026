@@ -16,8 +16,8 @@ onUnmounted(() => {
   window.removeEventListener('resize', checkMobile)
 })
 
-const mapDesktop = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/uGwORqJAHTUAAAAAgBAAAAgADiiDAQFr/original'
-const mapMobile = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/7LZsRqlGEZ8AAAAAVoAAAAgADiiDAQFr/original'
+const mapDesktop = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/0qPGRJO8Ge0AAAAAgCAAAAgADiiDAQFr/original'
+const mapMobile = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/8yoKTYkxXoMAAAAAccAAAAgADiiDAQFr/original'
 
 const transportInfo = [
   {
