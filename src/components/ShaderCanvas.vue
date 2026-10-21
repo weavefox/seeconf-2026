@@ -1,11 +1,13 @@
 <template>
-  <canvas ref="canvasRef" class="shader-canvas" aria-hidden="true"></canvas>
+  <canvas ref="canvasRef" class="shader-canvas" :class="{ ready }" :data-renderer="renderer" aria-hidden="true"></canvas>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
 
 const canvasRef = ref(null)
+const ready = ref(false)
+const renderer = ref('loading')
 
 /* ═════════════════════════════════════════════════════════════════
  * Shader sources — GLSL ES 3.00
@@ -167,7 +169,7 @@ const compositeFrag = `
   precision highp sampler3D;
   uniform sampler2D uSharp, uBlur, uAccumulation, uRevealNoise, uPaper, uPaperNormal;
   uniform sampler3D uDryLut, uInkLut;
-  uniform float uDrySize, uInkSize, uReduced, uIdle;
+  uniform float uDrySize, uInkSize, uReduced;
   uniform vec2 uPaperScale;
   vec3 lookup(sampler3D lut, float size, vec3 color){
     return texture(lut, vec3(.5 / size) + clamp(color, 0., 1.) * (1. - 1. / size)).rgb;
@@ -208,10 +210,7 @@ const compositeFrag = `
     float exposedFibers = thinPaint * sqrt(pigmentAmount) * mix(.05, 1., grainPatch);
     float relief = (dot(paperNormal.xy, normalize(vec2(-1., 1.))) * .05 + fibers * .1) * exposedFibers;
     dry = mix(dry, vec3(.965), fog) + relief;
-    vec3 watercolor = mix(dry, ink, mixValue);
-    // uIdle is driven by JS-side time tracking (0 = mouse active, 1 = idle).
-    // When idle, bypass ALL LUT/fog/paper processing and show the raw image directly.
-    vec3 color = mix(watercolor, sharp, uIdle);
+    vec3 color = mix(dry, ink, mixValue);
     outColor = vec4(color, 1.);
   }`
 
@@ -224,7 +223,7 @@ let cleanupFn = null
 onMounted(() => {
   const canvas = canvasRef.value
   if (!canvas) return
-  const body = document.body
+  const hero = canvas.parentElement
   const reduced = matchMedia('(prefers-reduced-motion: reduce)')
   const coarse = matchMedia('(pointer: coarse)')
 
@@ -236,15 +235,13 @@ onMounted(() => {
   /* state */
   let paused = reduced.matches
   let lastFrame = 0
-  let width = window.innerWidth, height = window.innerHeight
+  let width = hero.clientWidth, height = hero.clientHeight
   let imagePosition = [0.5, 0.5]
   let lastPointer = null
   let pendingStroke = null
   let loopId = 0
-  let lastInteractionTime = performance.now()
-
-  const pointer = { x: .5, y: .5, ringX: .5, ringY: .5 }
-  const damp = (a, b, rate, dt) => a + (b - a) * (1 - Math.exp(-rate * dt))
+  let disposed = false
+  let visible = true
 
   function setPaused(value) {
     paused = value
@@ -253,16 +250,13 @@ onMounted(() => {
   }
   setPaused(paused)
   const onReducedChange = e => setPaused(e.matches)
-  reduced.addEventListener('change', onReducedChange)
 
   /* pointer → fluid stroke */
   function onPointer(e) {
-    const x = e.clientX / width
-    const y = 1 - e.clientY / height
-    pointer.x = x; pointer.y = y
-    body.classList.add('pointer-visible')
-    lastInteractionTime = performance.now()
-    const now = lastInteractionTime
+    const bounds = canvas.getBoundingClientRect()
+    const x = (e.clientX - bounds.left) / bounds.width
+    const y = 1 - (e.clientY - bounds.top) / bounds.height
+    const now = performance.now()
     if (lastPointer && !paused) {
       const sampleDt = Math.max((now - lastPointer.time) / 1000, 1 / 120)
       const dx = (x - lastPointer.x) * width / height
@@ -279,14 +273,8 @@ onMounted(() => {
   }
   const onPointerDown = e => { lastPointer = null; onPointer(e) }
   const onPointerUp = e => { if (e.pointerType === 'touch') lastPointer = null }
-  const onPointerLeave = () => { lastPointer = null; body.classList.remove('pointer-visible') }
-  const onBlur = () => { lastPointer = null; pendingStroke = null; body.classList.remove('pointer-visible') }
-
-  window.addEventListener('pointermove', onPointer, { passive: true })
-  window.addEventListener('pointerdown', onPointerDown, { passive: true })
-  window.addEventListener('pointerup', onPointerUp, { passive: true })
-  document.addEventListener('pointerleave', onPointerLeave)
-  window.addEventListener('blur', onBlur)
+  const onPointerLeave = () => { lastPointer = null }
+  const onBlur = () => { lastPointer = null; pendingStroke = null }
 
   /* WebGL2 context */
   const gl = canvas.getContext('webgl2', {
@@ -296,7 +284,7 @@ onMounted(() => {
   const canSimulate = gl && gl.getExtension('EXT_color_buffer_float')
   if (!canSimulate) {
     canvas.style.display = 'none'
-    body.dataset.renderer = 'static'
+    renderer.value = 'static'
     return
   }
 
@@ -366,6 +354,30 @@ onMounted(() => {
   let noiseTexture, revealNoiseTexture, paperTexture, paperNormalTexture, dryLut, inkLut
   let sourceReady = false
   let resources = []
+  const assetTextures = new Set([imageTexture])
+  let backgroundUrl = ''
+  let backgroundRequest = 0
+  let backgroundReady = false
+
+  async function loadBackground() {
+    // CSS owns the desktop/mobile artwork and its cover position.
+    const style = getComputedStyle(hero)
+    const url = style.backgroundImage.match(/^url\(["']?(.*?)["']?\)$/)?.[1]
+    const pos = style.backgroundPosition.split(' ').map(value => parseFloat(value) / 100)
+    if (pos.length === 2 && pos.every(Number.isFinite)) imagePosition = pos
+    if (url === backgroundUrl) return
+    if (!url) throw new Error('Hero background image is missing')
+    backgroundUrl = url
+    const request = ++backgroundRequest
+    backgroundReady = false
+    ready.value = false
+    renderer.value = 'loading'
+    await loadImage(url, imageTexture, { isCurrent: () => request === backgroundRequest })
+    if (!disposed && request === backgroundRequest) {
+      backgroundReady = true
+      if (sourceReady) renderer.value = 'webgl2-ink-reveal'
+    }
+  }
 
   function target(w, h, color = false, linear = false) {
     const tex = gl.createTexture()
@@ -397,8 +409,8 @@ onMounted(() => {
   }
 
   function resize() {
-    width = window.innerWidth
-    height = window.innerHeight
+    width = hero.clientWidth
+    height = hero.clientHeight
     const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.75)
     canvas.width = Math.round(width * pixelRatio)
     canvas.height = Math.round(height * pixelRatio)
@@ -418,16 +430,12 @@ onMounted(() => {
     divergenceField = target(simulationWidth, simulationHeight)
     pendingStroke = null
     lastPointer = null
-    /* Read fallback img object-position to match CSS cover-fit on resize */
-    const fbImg = document.querySelector('.hero-fallback img')
-    if (fbImg) {
-      const pos = getComputedStyle(fbImg).objectPosition.split(' ').map(v => parseFloat(v) / 100)
-      if (pos.length >= 2 && pos.every(v => !isNaN(v))) imagePosition = pos
-    }
   }
 
-  const onResize = () => resize()
-  window.addEventListener('resize', onResize, { passive: true })
+  const onResize = () => {
+    resize()
+    loadBackground().catch(onAssetError)
+  }
   resize()
 
   /* uniform helpers */
@@ -504,15 +512,8 @@ onMounted(() => {
   function frame(now) {
     const dt = lastFrame ? Math.min((now - lastFrame) / 1000, 1 / 30) : 1 / 60
     lastFrame = now
-    pointer.ringX = damp(pointer.ringX, pointer.x, 11, dt)
-    pointer.ringY = damp(pointer.ringY, pointer.y, 11, dt)
-    const root = document.documentElement
-    root.style.setProperty('--cursor-x', `${pointer.x * width}px`)
-    root.style.setProperty('--cursor-y', `${(1 - pointer.y) * height}px`)
-    root.style.setProperty('--ring-x', `${pointer.ringX * width}px`)
-    root.style.setProperty('--ring-y', `${(1 - pointer.ringY) * height}px`)
 
-    if (sourceReady) {
+    if (sourceReady && backgroundReady) {
       if (!paused) simulate(dt)
 
       /* display — render background image to sharpTarget */
@@ -547,23 +548,21 @@ onMounted(() => {
       gl.uniform1f(progs.composite.uniforms.uDrySize, dryLut.size)
       gl.uniform1f(progs.composite.uniforms.uInkSize, inkLut.size)
       gl.uniform1f(progs.composite.uniforms.uReduced, reduced.matches ? 1 : 0)
-      // JS-side idle tracking: 0.3s grace after last pointer event, then ramp to 1 over 0.5s.
-      // When idle=1, composite shader shows raw background image (no LUT/fog), preventing blank page.
-      const sinceInteraction = (now - lastInteractionTime) / 1000
-      const idleAmount = Math.min(Math.max((sinceInteraction - 0.3) / 0.5, 0), 1)
-      gl.uniform1f(progs.composite.uniforms.uIdle, idleAmount)
       drawTo(null)
+      ready.value = true
     }
     loopId = requestAnimationFrame(frame)
   }
 
   /* texture loaders */
-  function loadImage(url, existing, { wrap = gl.CLAMP_TO_EDGE, mipmaps = false } = {}) {
+  function loadImage(url, existing, { wrap = gl.CLAMP_TO_EDGE, mipmaps = false, isCurrent = () => true } = {}) {
     return new Promise((resolve, reject) => {
       const img = new Image()
       img.crossOrigin = 'anonymous'
       img.onload = () => {
+        if (disposed || !isCurrent()) { resolve(null); return }
         const tex = existing || gl.createTexture()
+        assetTextures.add(tex)
         gl.activeTexture(gl.TEXTURE0)
         gl.bindTexture(gl.TEXTURE_2D, tex)
         gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, mipmaps ? gl.LINEAR_MIPMAP_LINEAR : gl.LINEAR)
@@ -575,7 +574,10 @@ onMounted(() => {
         if (mipmaps) gl.generateMipmap(gl.TEXTURE_2D)
         resolve(tex)
       }
-      img.onerror = () => reject(new Error(`Failed to load ${url}`))
+      img.onerror = () => {
+        if (disposed || !isCurrent()) { resolve(null); return }
+        reject(new Error(`Failed to load ${url}`))
+      }
       img.src = url
     })
   }
@@ -583,7 +585,9 @@ onMounted(() => {
   async function loadLut(url) {
     const res = await fetch(url)
     if (!res.ok) throw new Error(`Failed to load ${url}`)
-    const rows = (await res.text())
+    const source = await res.text()
+    if (disposed) return null
+    const rows = source
       .split(/\r?\n/)
       .filter(l => l.trim() && !l.startsWith('#'))
       .map(l => l.trim().split(/\s+/).map(Number))
@@ -601,6 +605,7 @@ onMounted(() => {
       data[idx + 3] = 255
     })
     const tex = gl.createTexture()
+    assetTextures.add(tex)
     gl.bindTexture(gl.TEXTURE_3D, tex)
     for (const f of [gl.TEXTURE_MIN_FILTER, gl.TEXTURE_MAG_FILTER]) gl.texParameteri(gl.TEXTURE_3D, f, gl.LINEAR)
     for (const a of [gl.TEXTURE_WRAP_S, gl.TEXTURE_WRAP_T, gl.TEXTURE_WRAP_R]) gl.texParameteri(gl.TEXTURE_3D, a, gl.CLAMP_TO_EDGE)
@@ -610,14 +615,15 @@ onMounted(() => {
   }
 
   Promise.all([
-    loadImage('https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Yqq2SbdCWdQAAAAAZRAAAAgADiiDAQFr/original', imageTexture),
-    loadImage('/textures/ink-noise.png', null, { wrap: gl.REPEAT }),
-    loadImage('/textures/reveal-noise.png', null, { wrap: gl.MIRRORED_REPEAT }),
-    loadImage('/textures/paper-texture.jpg', null, { wrap: gl.MIRRORED_REPEAT, mipmaps: true }),
-    loadImage('/textures/paper-normal.png', null, { wrap: gl.REPEAT, mipmaps: true }),
-    loadLut('/textures/lut/dry.3dl'),
-    loadLut('/textures/lut/ink.3dl'),
+    loadBackground(),
+    loadImage(`${import.meta.env.BASE_URL}ink-noise.png`, null, { wrap: gl.REPEAT }),
+    loadImage(`${import.meta.env.BASE_URL}reveal-noise.png`, null, { wrap: gl.MIRRORED_REPEAT }),
+    loadImage(`${import.meta.env.BASE_URL}paper-texture.jpg`, null, { wrap: gl.MIRRORED_REPEAT, mipmaps: true }),
+    loadImage(`${import.meta.env.BASE_URL}paper-normal.png`, null, { wrap: gl.REPEAT, mipmaps: true }),
+    loadLut(`${import.meta.env.BASE_URL}dry.3dl`),
+    loadLut(`${import.meta.env.BASE_URL}ink.3dl`),
   ]).then(([, noise, revealNoise, paper, paperNormal, dry, ink]) => {
+    if (disposed) return
     noiseTexture = noise
     revealNoiseTexture = revealNoise
     paperTexture = paper
@@ -625,46 +631,68 @@ onMounted(() => {
     dryLut = dry
     inkLut = ink
     sourceReady = true
-    body.dataset.renderer = 'webgl2-ink-reveal'
-    body.classList.add('ready')
-    loopId = requestAnimationFrame(frame)
-  }).catch(error => {
-    body.dataset.renderer = 'asset-error'
+    if (backgroundReady) renderer.value = 'webgl2-ink-reveal'
+    updatePlayback()
+  }).catch(onAssetError)
+
+  function onAssetError(error) {
+    if (disposed) return
+    ready.value = false
+    renderer.value = 'asset-error'
+    cancelAnimationFrame(loopId)
     console.error('Shader asset load failed:', error)
-  })
+  }
 
   /* context loss handling */
   const onContextLost = e => {
     e.preventDefault()
     cancelAnimationFrame(loopId)
-    body.classList.remove('ready')
-    body.dataset.renderer = 'context-lost'
+    ready.value = false
+    renderer.value = 'context-lost'
   }
   const onContextRestored = () => location.reload()
   canvas.addEventListener('webglcontextlost', onContextLost)
   canvas.addEventListener('webglcontextrestored', onContextRestored)
 
-  const onVisibility = () => {
-    if (document.hidden) { cancelAnimationFrame(loopId); lastFrame = 0; pendingStroke = null }
-    else if (sourceReady) { cancelAnimationFrame(loopId); loopId = requestAnimationFrame(frame) }
+  function updatePlayback() {
+    cancelAnimationFrame(loopId)
+    lastFrame = 0
+    pendingStroke = null
+    lastPointer = null
+    if (sourceReady && visible && !document.hidden && !disposed && !gl.isContextLost() && renderer.value !== 'asset-error') {
+      loopId = requestAnimationFrame(frame)
+    }
   }
-  document.addEventListener('visibilitychange', onVisibility)
+  const observer = new IntersectionObserver(([entry]) => {
+    visible = entry.isIntersecting
+    updatePlayback()
+  })
+  observer.observe(hero)
+  window.addEventListener('resize', onResize, { passive: true })
+  hero.addEventListener('pointermove', onPointer, { passive: true })
+  hero.addEventListener('pointerdown', onPointerDown, { passive: true })
+  hero.addEventListener('pointerup', onPointerUp, { passive: true })
+  hero.addEventListener('pointerleave', onPointerLeave)
+  window.addEventListener('blur', onBlur)
+  reduced.addEventListener('change', onReducedChange)
+  document.addEventListener('visibilitychange', updatePlayback)
 
   cleanupFn = () => {
+    disposed = true
     cancelAnimationFrame(loopId)
+    observer.disconnect()
     window.removeEventListener('resize', onResize)
-    window.removeEventListener('pointermove', onPointer)
-    window.removeEventListener('pointerdown', onPointerDown)
-    window.removeEventListener('pointerup', onPointerUp)
-    document.removeEventListener('pointerleave', onPointerLeave)
+    hero.removeEventListener('pointermove', onPointer)
+    hero.removeEventListener('pointerdown', onPointerDown)
+    hero.removeEventListener('pointerup', onPointerUp)
+    hero.removeEventListener('pointerleave', onPointerLeave)
     window.removeEventListener('blur', onBlur)
     reduced.removeEventListener('change', onReducedChange)
-    document.removeEventListener('visibilitychange', onVisibility)
+    document.removeEventListener('visibilitychange', updatePlayback)
     canvas.removeEventListener('webglcontextlost', onContextLost)
     canvas.removeEventListener('webglcontextrestored', onContextRestored)
-    body.classList.remove('ready', 'pointer-visible')
     for (const r of resources) { gl.deleteTexture(r.texture); gl.deleteFramebuffer(r.framebuffer) }
-    gl.deleteTexture(imageTexture)
+    for (const texture of assetTextures) gl.deleteTexture(texture)
     Object.values(progs).forEach(p => { gl.deleteProgram(p.program) })
     gl.deleteBuffer(buffer)
     gl.deleteVertexArray(vao)
@@ -689,8 +717,8 @@ onUnmounted(() => {
   pointer-events: none;
 }
 
-/* When assets are ready the canvas fades in and the CSS fallback fades out */
-:global(body.ready) .shader-canvas {
+/* Keep the CSS artwork visible until the first complete shader frame. */
+.shader-canvas.ready {
   opacity: 1;
 }
 </style>

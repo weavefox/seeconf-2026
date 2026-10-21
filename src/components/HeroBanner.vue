@@ -1,5 +1,6 @@
 <script setup>
 import { conferenceInfo } from '../data.js'
+import ShaderCanvas from './ShaderCanvas.vue'
 
 const scrollTo = (anchor) => {
   const el = document.getElementById(anchor)
@@ -11,6 +12,7 @@ const titleParts = [conferenceInfo.title.slice(0, 6), conferenceInfo.title.slice
 
 <template>
   <section id="hero" class="hero">
+    <ShaderCanvas />
     <!-- Main hero text -->
     <div class="hero-title">
       <h1><span class="h1-word">SEE</span> <span class="h1-word">Conf</span></h1>
