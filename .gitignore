@@ -28,3 +28,9 @@ node_modules
 *.njsproj
 *.sln
 *.sw?
+
+# lock 文件
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+bun.lock
