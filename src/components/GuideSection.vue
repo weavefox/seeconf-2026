@@ -248,7 +248,7 @@ const transportInfo = [
 }
 
 @media (max-width: 768px) {
-  .guide { padding: 60px 0; }
+  .guide { padding: 30px 0; }
   .container {
     padding: 0 8%;
   }
@@ -260,7 +260,7 @@ const transportInfo = [
     max-width: 100%;
   }
   .transport-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
 }
