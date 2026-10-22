@@ -17,6 +17,7 @@ dist-ssr
 
 # 依赖包
 node_modules
+src/effects/.compiled
 
 # Editor directories and files
 .vscode/*

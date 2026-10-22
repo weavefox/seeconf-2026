@@ -1,16 +1,30 @@
 <script setup>
+import { ref } from 'vue'
 import { conferenceInfo } from '../data.js'
+import ShaderCanvas from './ShaderCanvas.vue'
+import HeroCursor from './HeroCursor.vue'
+
+const watercolorReady = ref(false)
 
 const scrollTo = (anchor) => {
   const el = document.getElementById(anchor)
-  if (el) el.scrollIntoView({ behavior: 'smooth' })
+  if (el) el.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' })
+}
+
+const onControlContextMenu = (event) => {
+  if (event.pointerType === 'touch' || matchMedia('(hover: none) and (pointer: coarse)').matches) {
+    event.preventDefault()
+  }
 }
 
 const titleParts = [conferenceInfo.title.slice(0, 6), conferenceInfo.title.slice(6)]
 </script>
 
 <template>
-  <section id="hero" class="hero">
+  <section id="hero" class="hero" :class="{ 'hero-watercolor-ready': watercolorReady }">
+    <ShaderCanvas @ready-change="watercolorReady = $event" />
+    <HeroCursor />
+    <div class="hero-interaction" aria-hidden="true"></div>
     <!-- Main hero text -->
     <div class="hero-title">
       <h1><span class="h1-word">SEE</span> <span class="h1-word">Conf</span></h1>
@@ -20,23 +34,33 @@ const titleParts = [conferenceInfo.title.slice(0, 6), conferenceInfo.title.slice
         </p>
         <p class="hero-description">{{ conferenceInfo.slogan }}</p>
       </div>
-      <a class="hero-buy-btn" href="https://www.bagevent.com/event/SEEConf2026" target="_blank" rel="noopener">立即购票<span class="btn-arrow">↗</span></a>
+      <a class="hero-buy-btn" href="https://www.bagevent.com/event/SEEConf2026" target="_blank" rel="noopener" @contextmenu="onControlContextMenu">立即购票<span class="btn-arrow">↗</span></a>
       <p class="hero-date"><span class="date-loc">杭州 · 蚂蚁 A 空间</span><span class="date-sep"> / </span>{{ conferenceInfo.date }}</p>
     </div>
 
-    <div class="hero-scroll-hint" @click="scrollTo('agenda')">
+    <button class="hero-scroll-hint" data-hero-scroll type="button" @click="scrollTo('guide')" @contextmenu="onControlContextMenu">
       <span>向下滚动探索</span>
-      <div class="scroll-arrow"></div>
-    </div>
+      <span class="scroll-arrow" aria-hidden="true"></span>
+    </button>
   </section>
 </template>
 
 <style scoped>
 .hero {
   position: relative;
+  -webkit-user-select: none;
+  user-select: none;
   min-height: 100vh;
+  min-height: 100svh;
   overflow: hidden;
   background: #f6f6f6 url('https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Yqq2SbdCWdQAAAAAZRAAAAgADiiDAQFr/original') center / cover no-repeat;
+}
+
+/* Keep the scroll control outside the surface that consumes touch panning. */
+.hero-interaction {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
 }
 
 /* Hero title group — left-positioned, matching the reference page */
@@ -101,9 +125,19 @@ const titleParts = [conferenceInfo.title.slice(0, 6), conferenceInfo.title.slice
   pointer-events: auto;
 }
 
-.hero-buy-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+.hero-buy-btn,
+.hero-scroll-hint {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-buy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  }
 }
 
 .btn-arrow {
@@ -127,17 +161,35 @@ const titleParts = [conferenceInfo.title.slice(0, 6), conferenceInfo.title.slice
 
 .hero-scroll-hint {
   position: absolute;
-  bottom: 24px;
+  bottom: max(14px, env(safe-area-inset-bottom));
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  min-width: 144px;
+  padding: 10px 20px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  line-height: 1.6;
   cursor: pointer;
   z-index: 10;
   color: rgba(18, 18, 18, 0.4);
   font-size: 12px;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .hero-watercolor-ready .hero-interaction,
+  .hero-watercolor-ready .hero-buy-btn { touch-action: pinch-zoom; }
+  .hero-scroll-hint { touch-action: pan-y pinch-zoom; }
+}
+
+.hero-scroll-hint:focus-visible {
+  outline: 2px solid #0f83d3;
+  outline-offset: 2px;
+  border-radius: 12px;
 }
 
 .scroll-arrow {
@@ -208,7 +260,22 @@ const titleParts = [conferenceInfo.title.slice(0, 6), conferenceInfo.title.slice
     margin-left: 0;
     white-space: nowrap;
   }
-  .hero-scroll-hint { display: none; }
+}
+
+@media (max-width: 768px) and (max-height: 740px) {
+  .hero-title { top: max(80px, 14svh); }
+  .hero-title h1 { font-size: min(34vw, 16svh); }
+  .hero-name {
+    font-size: min(9vw, 4.2svh);
+    margin: 3svh 0 1svh;
+  }
+  .hero-description { font-size: min(3.2vw, 1.8svh); }
+  .hero-buy-btn { margin-top: 3svh; padding: 8px 36px; }
+  .hero-date { margin-top: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-arrow::after { animation: none; }
 }
 
 @media (max-width: 480px) {

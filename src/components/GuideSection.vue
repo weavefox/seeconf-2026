@@ -16,8 +16,8 @@ onUnmounted(() => {
   window.removeEventListener('resize', checkMobile)
 })
 
-const mapDesktop = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/uGwORqJAHTUAAAAAgBAAAAgADiiDAQFr/original'
-const mapMobile = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/7LZsRqlGEZ8AAAAAVoAAAAgADiiDAQFr/original'
+const mapDesktop = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/0qPGRJO8Ge0AAAAAgCAAAAgADiiDAQFr/original'
+const mapMobile = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/8yoKTYkxXoMAAAAAccAAAAgADiiDAQFr/original'
 
 const transportInfo = [
   {
@@ -165,16 +165,15 @@ const transportInfo = [
 .guide-right a {
   display: block;
   width: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(18, 18, 18, 0.1);
+  border-radius: 20px;
 }
 
 .guide-map {
+  display: block;
   width: 100%;
-  max-width: 1800px;
-  height: 250px;
-  object-fit: cover;
-  border-radius: 20px;
-  border: 1px solid rgba(18, 18, 18, 0.1);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+  height: auto;
 }
 
 .guide-notice {
@@ -255,9 +254,6 @@ const transportInfo = [
   .guide-layout {
     grid-template-columns: 1fr;
     gap: 32px;
-  }
-  .guide-map {
-    max-width: 100%;
   }
   .transport-grid {
     grid-template-columns: repeat(2, 1fr);
