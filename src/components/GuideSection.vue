@@ -246,6 +246,14 @@ const transportInfo = [
   margin-top: 4px;
 }
 
+/* Tablet & mobile: force 2 columns for transport grid */
+@media (max-width: 1024px) {
+  .transport-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
 @media (max-width: 768px) {
   .guide { padding: 30px 0; }
   .container {
@@ -254,10 +262,6 @@ const transportInfo = [
   .guide-layout {
     grid-template-columns: 1fr;
     gap: 32px;
-  }
-  .transport-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
   }
 }
 </style>
