@@ -110,7 +110,7 @@ const navColumns = [
 }
 
 .footer-brand {
-  max-width: 680px;
+  max-width: 760px;
 }
 
 .brand-desc {
