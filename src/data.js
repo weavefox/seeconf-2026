@@ -289,8 +289,8 @@ export const specialGuests = [
   { name: '郭虹宇', nickname: '老郭', title: '淘天集团 · 淘宝终端技术负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/zhWVQJ9fl8wAAAAAWFAAAAgADiiDAQFr/original' },// 红背景
   { name: '郭旻桢', nickname: '臻儿', title: '蚂蚁集团 · 支付宝 AI 创新产品中心负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/hclxS4p2cMoAAAAAVpAAAAgADiiDAQFr/original' },// 蓝
   { name: '王保平', nickname: '玉伯', title: 'YouMind · 创始人 & CEO', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/JdPbRoMkZugAAAAAWiAAAAgADiiDAQFr/original' }, // 红
-  { name: '翁欣旦', nickname: '钱唐', title: '蚂蚁集团 · 终端技术委员会负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/PruWTr5WZhEAAAAAViAAAAgADiiDAQFr/original' },// 蓝背景
-  { name: '王姣', nickname: '杜素', title: '蚂蚁集团 · 支付宝设计负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/WWgbRo7XzxAAAAAAW_AAAAgADiiDAQFr/original' },// 红背景
+  { name: '翁欣旦', nickname: '钱唐', title: '蚂蚁集团 · 终端技术委员会负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/OQvVSKw2A9AAAAAAW8AAAAgADiiDAQFr/original' },// 蓝背景
+  { name: '王姣', nickname: '杜素', title: '蚂蚁集团 · 支付宝设计负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/VrCeTqfsAlgAAAAAW3AAAAgADiiDAQFr/original' },// 红背景
   { name: '于海泽', nickname: '镜同', title: '蚂蚁集团 · AI 支付产品总监', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/sdgiT4FDDTAAAAAAWSAAAAgADiiDAQFr/original' },// 红
   { name: '舒文亮', nickname: '舒文', title: '中国计算机学会 TF 智能前端 SIG 主席，蚂蚁集团 · 财富保险事业群终端负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/m8aHRrLDZ-4AAAAAVUAAAAgADiiDAQFr/original' },// 蓝背景
   { name: '管维刚', nickname: '古云', title: '网商银行 · 普惠信贷体验技术部负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/vkW8S72Dhv0AAAAAVqAAAAgADiiDAQFr/original' },// 红
