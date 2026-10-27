@@ -27,14 +27,14 @@ const getAvatar = (index) => {
         >
           <img
             class="guest-avatar"
-            :src="getAvatar(index)"
+            :src="guest.avatar"
             alt="特邀嘉宾头像"
           />
           <p class="guest-name">
-            <span>嘉宾姓名</span>
-            <span class="guest-nickname">花名</span>
+            <span>{{ guest.name }}</span>
+            <span class="guest-nickname">{{ guest.nickname }}</span>
           </p>
-          <p class="guest-bio">所在机构 · 职务</p>
+          <p class="guest-bio">{{ guest.title }}</p>
         </div>
       </div>
     </div>
@@ -73,7 +73,7 @@ const getAvatar = (index) => {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   column-gap: 40px;
-  row-gap: 4px;
+  row-gap: 0;
 }
 
 .guest-card {
@@ -87,7 +87,7 @@ const getAvatar = (index) => {
 .guest-avatar {
   width: 100%;
   width: 100%;
-  aspect-ratio: 4/3;
+  aspect-ratio: 3.2/3;
   object-fit: contain;
   display: block;
   border-radius: 20px;

@@ -20,7 +20,7 @@ useHead({
     <TheNavbar />
     <main>
       <HeroBanner />
-      <SpeakersSection />
+      <!-- <SpeakersSection /> -->
       <div class="section-divider"></div>
       <AgendaSection />
       <div class="section-divider"></div>

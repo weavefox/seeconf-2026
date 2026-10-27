@@ -285,14 +285,15 @@ export const speakers = [
 
 // 特邀嘉宾
 export const specialGuests = [
-  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
-  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
-  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
-  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
-  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
-  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
-  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
-  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
+  { name: '何征宇', nickname: '梁纥', title: '蚂蚁集团 · CTO', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/dPmMTIb6mFEAAAAAVXAAAAgADiiDAQFr/original' }, // 蓝
+  { name: '郭虹宇', nickname: '老郭', title: '淘天集团 · 淘宝终端技术负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/zhWVQJ9fl8wAAAAAWFAAAAgADiiDAQFr/original' },// 红背景
+  { name: '郭旻桢', nickname: '臻儿', title: '蚂蚁集团 · 支付宝 AI 创新产品中心负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/hclxS4p2cMoAAAAAVpAAAAgADiiDAQFr/original' },// 蓝
+  { name: '王保平', nickname: '玉伯', title: 'YouMind · 创始人 & CEO', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/JdPbRoMkZugAAAAAWiAAAAgADiiDAQFr/original' }, // 红
+  { name: '翁欣旦', nickname: '钱唐', title: '蚂蚁集团 · 终端技术委员会负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/PruWTr5WZhEAAAAAViAAAAgADiiDAQFr/original' },// 蓝背景
+  { name: '王姣', nickname: '杜素', title: '蚂蚁集团 · 支付宝设计负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/WWgbRo7XzxAAAAAAW_AAAAgADiiDAQFr/original' },// 红背景
+  { name: '于海泽', nickname: '镜同', title: '蚂蚁集团 · AI 支付产品总监', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/sdgiT4FDDTAAAAAAWSAAAAgADiiDAQFr/original' },// 红
+  { name: '舒文亮', nickname: '舒文', title: '中国计算机学会 TF 智能前端 SIG 主席，蚂蚁集团 · 财富保险事业群终端负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/m8aHRrLDZ-4AAAAAVUAAAAgADiiDAQFr/original' },// 蓝背景
+  { name: '管维刚', nickname: '古云', title: '网商银行 · 普惠信贷体验技术部负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/vkW8S72Dhv0AAAAAVqAAAAgADiiDAQFr/original' },// 红
 ]
 
 // 出品人
@@ -305,20 +306,20 @@ export const producers = [
 
 // 特色展台
 export const exhibitions = [
-  { name: '蚂蚁阿福', description: '你的 AI 医生朋友。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Q86OQ455uroAAAAAS2AAAAgADiiDAQFr/original', link: 'https://chat.antafu.com/' },
+  { name: '蚂蚁阿福', description: '你的 AI 医生朋友。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Q86OQ455uroAAAAAS2AAAAgADiiDAQFr/256w_256h', link: '' },
   { name: '灵光', description: '灵光，能管事的个人助理。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Ffu4QKE_p6EAAAAAgCAAAAgADiiDAQFr/original', link: 'https://www.lingguang.com/' },
   { name: '百灵', description: '为真实世界而生的开放智能。Open intelligence for the real-world.', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/lXz6Safe1GcAAAAAQWAAAAgADiiDAQFr/original', link: 'https://www.ant-ling.com/' },
   { name: 'AI 付', description: '以创新的 AI 支付助力AI时代。Powering the AI Era with Innovative AI Payments.', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/JwfPSq2DBxQAAAAAQFAAAAgADiiDAQFr/original', link: 'https://aipay.alipay.com/' },
   { name: '阿宝', description: '作为 AI 版支付宝，阿宝是你的专属 Personal Agent 生活助手，现设立千万奖池发起智能体涌现奖大赛，旨在征集有用、有趣的生活消费智能体和 Agent、Skill，赋能开发者及其智能体作品商业潜力，落地支付宝生态。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/hpbmSKcqrngAAAAAgEAAAAgADiiDAQFr/original', link: 'https://abaoemerge.alipay.com' },
   { name: 'WeaveFox', description: 'AI 全栈应用创作平台，通过自然语言对话，自由创造个人专属的工具与独立应用，快速实现创意变现。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/ZAv4TKvxmvYAAAAAQEAAAAgADiiDAQFr/original', link: 'https://www.weavefox.cn/' },
   { name: 'AntV', description: '蚂蚁企业级 AI 数据可视化解决方案，让人们在数据世界里获得视觉化思考能力。Turning data into a visual language for better thinking.', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/RSVoSYTISmYAAAAAQDAAAAgADiiDAQFr/original', link: 'https://antv.antgroup.com/' },
-  { name: 'Galacean', description: 'Galacean (formerly OGL / Ant Group Web Graphics) is an open-source, mobile-first, and web-first interactive 2D/3D graphics and game engine developed by Ant Group.', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/8eM2T5UX840AAAAAQwAAAAgADiiDAQFr/original', link: 'https://galacean.antgroup.com/engine' },
+  { name: 'Galacean', description: 'Galacean Engine 是蚂蚁集团开源的 AI-Native 图形与游戏引擎，秉承 AI-First、移动端优先、Web 优先的设计理念，让创作者通过 Harness，以自然语言构建游戏与 3D 互动应用，将一个念头变成可探索、可交互的数字世界。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/8eM2T5UX840AAAAAQwAAAAgADiiDAQFr/original', link: 'https://galacean.antgroup.com/engine' },
   { name: 'Ant Design', description: 'Ant Design 是蚂蚁集团开源的企业级设计体系，提供设计规范、高质量 React 组件及配套生态。通过灵活的主题定制与 AI 友好的开发能力，帮助设计者和开发者高效构建风格统一、富有个性的产品体验。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/2eedSL8R2lUAAAAAQLAAAAgADiiDAQFr/original', link: 'https://ant.design/' },
   { name: 'QMuse', description: 'QMuse 是支付宝旗下的 AI 原生生产力平台，融合自然语言与多模态生成能力，支持PC/移动双端低门槛创作网页/小程序/PPT 等多类型产物，出品即精品、产物即交付', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/IKacQ4qV_ocAAAAARBAAAAgADiiDAQFr/original', link: 'https://qmuse.cn/' },
   { name: '画眉', description: 'AI Native 创意生产平台，全面助力 超级个体 和 业务 快速生产高质量的图片、动效、视频、UI，用好创意驱动业务增长。过去一年累计完成 3.6 亿次生成。', logo: 'https://mdn.alipayobjects.com/huamei_9ip1jn/afts/img/A*tyd5RKlUt5IAAAAAAAAAAAAADn95AQ/original', link: 'https://idesign.alipay.com/' },
   { name: '千问办公', description: '千问办公是阿里巴巴全新推出的一站式 AI 办公平台。当前深度融入钉钉生态，实现与钉钉功能体系的无缝衔接；未来将进一步打通企业数据库及主流 åIM 工具，构建更广泛的连接能力。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/DzCTTra6k4MAAAAAQFAAAAgADiiDAQFr/original', link: 'https://qwenwork.cn' },
   { name: 'Qoder', description: 'Qoder 是一个面向真实工作的 Agentic 平台，将 AI 带入软件开发、终端工作流、云端托管执行、日常办公和持续运行的数字岗位。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/29jjRZAGimcAAAAAQOAAAAgADiiDAQFr/original', link: 'https://qoder.cn/' },
-  { name: '哆啦', description: '意图发生，供给抵达', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/KHScQqyLEFAAAAAAQKAAAAgADiiDAQFr/original', link: 'https://dora.antgroup-inc.cn/' },
+  { name: '哆啦', description: '意图发生，供给抵达。哆啦是面向消费金融场景的 AI Native 生产与经营平台，围绕用户意图，连接需求理解、服务生成与按需交付，让合适的服务在用户需要时抵达。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/KHScQqyLEFAAAAAAQKAAAAgADiiDAQFr/original', link: '' }, // link: 'https://dora.antgroup.com' 
 ]
 
 // 合作伙伴（hideName 表示 logo 已含品牌名，不再重复显示名称）

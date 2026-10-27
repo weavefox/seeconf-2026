@@ -24,12 +24,13 @@ const icons = [
       </div>
 
       <div class="expo-grid">
-        <a
+        <component
+          :is="item.link ? 'a' : 'div'"
           v-for="(item, index) in exhibitions"
           :key="index"
-          :href="item.link"
-          target="_blank"
-          rel="noopener"
+          :href="item.link || undefined"
+          :target="item.link ? '_blank' : undefined"
+          :rel="item.link ? 'noopener' : undefined"
           class="expo-card"
           :style="{ backgroundImage: `url(${sessionCardBg})` }"
         >
@@ -41,7 +42,7 @@ const icons = [
                   <path :d="icons[index % icons.length]" />
                 </svg>
               </span>
-              <span class="expo-arrow" aria-label="查看更多">
+              <span v-if="item.link" class="expo-arrow" aria-label="查看更多">
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M7 17L17 7M17 7H7M17 7v10" />
                 </svg>
@@ -50,7 +51,7 @@ const icons = [
             <h3 class="expo-name">{{ item.name }}</h3>
             <p class="expo-desc">{{ item.description }}</p>
           </div>
-        </a>
+        </component>
       </div>
     </div>
   </section>
