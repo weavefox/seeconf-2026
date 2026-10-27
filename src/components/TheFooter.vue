@@ -10,10 +10,12 @@ const navColumns = [
   {
     title: '快速导航',
     links: [
-      { label: '分享嘉宾', anchor: 'speakers' },
-      { label: '会议日程', anchor: 'agenda' },
-      { label: '参会指南', anchor: 'guide' },
+      // { label: '分享嘉宾', anchor: 'speakers' },
+      // { label: '会议议程', anchor: 'agenda' },
+      { label: '特邀嘉宾', anchor: 'guests' },
+      { label: '特色展台', anchor: 'expo' },
       { label: '合作伙伴', anchor: 'partners' },
+      { label: '参会指南', anchor: 'guide' },
     ],
   },
 ]
@@ -116,7 +118,7 @@ const navColumns = [
 .brand-desc {
   font-size: 13px;
   color: rgba(18, 18, 18, 0.5);
-  line-height: 1.8;
+  line-height: 2.4;
   margin-top: 16px;
   margin-bottom: 20px;
 }
@@ -126,7 +128,7 @@ const navColumns = [
 }
 
 .brand-desc p + p {
-  margin-top: 10px;
+  margin-top: 16px;
 }
 
 .brand-social {
@@ -216,7 +218,7 @@ const navColumns = [
 .col-links {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 }
 
 .col-links a {
