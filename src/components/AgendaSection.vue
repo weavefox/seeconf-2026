@@ -1,89 +1,115 @@
 <script setup>
-import { ref } from 'vue'
-import { mainAgenda, sessionAgenda, sessions } from '../data.js'
+import { ref, computed } from 'vue'
+import { sessions, agendaData } from '../data.js'
 
-const activeTab = ref('main')
+const activeSession = ref('main')
 
-const switchTab = (id) => {
-  activeTab.value = id
+const avatarRed = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/IKJ3RJtJL_QAAAAAQmAAAAgADiiDAQFr/original'
+const avatarBlue = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/iL5aSretd-wAAAAAQbAAAAgADiiDAQFr/original'
+const sessionCardBg = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/kJUaRo3LirwAAAAAQPAAAAgADiiDAQFr/original'
+
+const getAvatar = (index) => {
+  return index % 2 === 0 ? avatarBlue : avatarRed
 }
 
-const currentAgenda = ref(mainAgenda)
+const currentAgenda = computed(() => {
+  return agendaData[activeSession.value] || []
+})
 
-const getCurrentAgenda = () => {
-  if (activeTab.value === 'main') return mainAgenda
-  return sessionAgenda[activeTab.value] || []
+const selectSession = (id) => {
+  activeSession.value = id
 }
 
-const tabList = [
-  { id: 'main', name: '主会场' },
-  ...sessions.map(s => ({ id: s.id, name: s.name, icon: s.icon, color: s.color }))
-]
+const sessionSliderRef = ref(null)
+const sliderProgress = ref(0)
+const sliderRatio = ref(0)
+
+const updateSliderProgress = () => {
+  const el = sessionSliderRef.value
+  if (!el) return
+  const maxScroll = el.scrollWidth - el.clientWidth
+  sliderProgress.value = maxScroll > 0 ? (el.scrollLeft / maxScroll) * 100 : 0
+  sliderRatio.value = maxScroll > 0 ? el.clientWidth / el.scrollWidth : 1
+}
+
+const onSliderScroll = () => {
+  updateSliderProgress()
+}
+
+const scrollSessionsNext = () => {
+  if (sessionSliderRef.value) {
+    sessionSliderRef.value.scrollBy({ left: 560, behavior: 'smooth' })
+  }
+}
 </script>
 
 <template>
   <section id="agenda" class="agenda">
     <div class="container">
       <div class="section-header">
-        <span class="section-tag">AGENDA</span>
-        <h2 class="section-title">日程安排</h2>
-        <p class="section-subtitle">2026年11月22日 · 中国·杭州</p>
+        <span class="section-tag">AGENDA / 2026</span>
+        <h2 class="section-title">分享议程</h2>
       </div>
 
-      <div class="tabs">
-        <button
-          v-for="tab in tabList"
-          :key="tab.id"
-          class="tab"
-          :class="{ active: activeTab === tab.id }"
-          @click="switchTab(tab.id)"
-        >
-          <span v-if="tab.icon" class="tab-icon">{{ tab.icon }}</span>
-          <span>{{ tab.name }}</span>
+      <!-- 专场卡片选择 + 右箭头 -->
+      <div class="session-wrapper">
+        <div ref="sessionSliderRef" class="session-cards" @scroll="onSliderScroll">
+          <div
+            v-for="session in sessions"
+            :key="session.id"
+            class="session-card"
+            :class="{ active: activeSession === session.id }"
+            :style="{ backgroundImage: `url(${sessionCardBg})` }"
+            @click="selectSession(session.id)"
+          >
+            <div class="session-card-overlay">
+              <span v-if="session.isLive" class="live-badge">正在直播</span>
+              <p class="session-type">{{ session.name }}</p>
+              <h3 class="session-subtitle">{{ session.subtitle }}</h3>
+            </div>
+          </div>
+        </div>
+        <div class="slider-indicator">
+          <div class="slider-track">
+            <div
+              class="slider-thumb"
+              :style="{ left: `${sliderProgress * (1 - sliderRatio)}%`, width: `${sliderRatio * 100}%` }"
+            ></div>
+          </div>
+        </div>
+        <button class="session-arrow" @click="scrollSessionsNext" aria-label="向右滚动">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m9 18 6-6-6-6" />
+          </svg>
         </button>
       </div>
 
-      <!-- 主会场日程 -->
-      <div v-if="activeTab === 'main'" class="timeline">
+      <!-- 纵向 timeline 议程列表 -->
+      <div class="timeline">
         <div class="timeline-line"></div>
         <div
-          v-for="(item, index) in getCurrentAgenda()"
+          v-for="(item, index) in currentAgenda"
           :key="index"
           class="timeline-item"
-          :class="{ keynote: item.isKeynote, break: item.isBreak }"
         >
-          <div class="timeline-dot"></div>
-          <div class="timeline-time">{{ item.time }}</div>
-          <div class="timeline-card">
-            <div class="card-header">
-              <h3 class="card-title">{{ item.title }}</h3>
-              <span v-if="item.isKeynote" class="badge-keynote">Keynote</span>
-              <span v-if="item.isBreak" class="badge-break">Break</span>
-            </div>
-            <div v-if="item.speaker" class="card-speaker">
-              <span class="speaker-name">{{ item.speaker }}</span>
-              <span v-if="item.company" class="speaker-company">{{ item.company }}</span>
-            </div>
-            <p v-if="item.description" class="card-desc">{{ item.description }}</p>
+          <span class="timeline-badge" :class="index % 2 === 0 ? 'badge-blue' : 'badge-red'"></span>
+          <div class="timeline-time-col">
+            <p class="timeline-time">{{ item.time }}</p>
           </div>
-        </div>
-      </div>
-
-      <!-- 分会场日程 -->
-      <div v-else class="session-agenda">
-        <div
-          v-for="(item, index) in getCurrentAgenda()"
-          :key="index"
-          class="agenda-card"
-        >
-          <div class="agenda-time">{{ item.time }}</div>
-          <div class="agenda-body">
-            <h3 class="agenda-title">{{ item.title }}</h3>
-            <div class="agenda-speaker">
-              <span class="speaker-name">{{ item.speaker }}</span>
-              <span v-if="item.company" class="speaker-company">· {{ item.company }}</span>
+          <div class="timeline-content">
+            <h3 class="timeline-title">{{ item.title }}</h3>
+            <p class="timeline-desc">{{ item.description }}</p>
+          </div>
+          <div class="timeline-guest">
+            <img
+              class="guest-avatar"
+              :src="getAvatar(index)"
+              alt="嘉宾头像"
+            />
+            <div class="guest-meta">
+              <strong>{{ item.speaker }}</strong>
+              <span v-if="item.speakerTitle">{{ item.speakerTitle }}</span>
             </div>
-            <p class="agenda-desc">{{ item.description }}</p>
           </div>
         </div>
       </div>
@@ -93,283 +119,303 @@ const tabList = [
 
 <style scoped>
 .agenda {
-  padding: 100px 0;
-  background: linear-gradient(180deg, #f4f4f4 0%, #fff 100%);
+  padding: 42px 0;
+  background: #fff;
 }
 
 .section-header {
-  text-align: center;
-  margin-bottom: 40px;
+  text-align: left;
+  margin-bottom: 16px;
 }
 
 .section-tag {
-  display: inline-block;
-  font-size: 13px;
+  display: block;
+  font-size: 20px;
   font-weight: 600;
   letter-spacing: 2px;
-  color: var(--color-primary);
+  color: var(--color-text);
   margin-bottom: 12px;
 }
 
 .section-title {
-  font-size: 40px;
-  font-weight: 700;
+  font-size: 90px;
+  font-weight: 900;
   color: var(--color-text);
+  line-height: 1.2;
+  text-align: left;
 }
 
-.section-subtitle {
-  font-size: 15px;
-  color: var(--color-text-secondary);
-  margin-top: 12px;
-}
-
-.tabs {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
+/* 专场卡片 + 箭头 */
+.session-wrapper {
+  position: relative;
   margin-bottom: 48px;
 }
 
-.tab {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 24px;
+.session-cards {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 4px 4px 8px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.session-cards::-webkit-scrollbar {
+  display: none;
+}
+
+.session-card {
+  flex-shrink: 0;
+  width: 300px;
+  aspect-ratio: 1;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.session-card:hover {
+  transform: translateY(-2px);
+}
+
+.session-card.active {
+  box-shadow: 0 0 0 1px #1a1a1a;
+}
+
+.session-card.active .session-card-overlay {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.session-card.active .session-type,
+.session-card.active .session-subtitle {
+  color: var(--color-text);
+}
+
+.session-card-overlay {
+  width: 100%;
+  height: 100%;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(2px);
+  transition: background 0.3s;
+}
+
+.session-card:hover .session-card-overlay {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.live-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+  background: #f3584c;
+  padding: 2px 8px;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+.session-type {
   font-size: 14px;
   font-weight: 600;
   color: var(--color-text-secondary);
-  border-radius: 48px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  transition: all 0.3s;
+  margin: 0 0 4px;
 }
 
-.tab:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+.session-subtitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
 }
 
-.tab.active {
+/* 右箭头 */
+.session-arrow {
+  position: absolute;
+  top: 50%;
+  right: -12px;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #1a1a1a;
   color: #fff;
-  background: linear-gradient(90deg, #0f83d3, #f3584c);
-  border-color: transparent;
-  box-shadow: 0 4px 12px rgba(243, 88, 76, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+  border: none;
+  flex-shrink: 0;
 }
 
-.tab-icon {
-  font-size: 16px;
+.session-arrow:hover {
+  background: #333;
+  transform: translateY(-50%) scale(1.1);
 }
 
-/* 主会场时间轴 */
+/* slider 指示器 */
+.slider-indicator {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.slider-track {
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.slider-thumb {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  border-radius: 2px;
+  background: #1a1a1a;
+  transition: left 0.2s ease, width 0.2s ease;
+}
+
+/* 纵向 timeline */
 .timeline {
   position: relative;
-  max-width: 800px;
-  margin: 0 auto;
-  padding-left: 24px;
+  padding: 12px 40px 12px 72px;
+  border: 1px solid #d0d0d0;
+  border-radius: 20px;
 }
 
 .timeline-line {
   position: absolute;
-  left: 7px;
-  top: 8px;
-  bottom: 8px;
-  width: 2px;
-  background: linear-gradient(180deg, #0f83d3, #f3584c, #12a7df);
-  opacity: 0.3;
+  left: 36px;
+  top: 40px;
+  bottom: 40px;
+  width: 0;
+  border-left: 1px dashed #c0c0c0;
 }
 
 .timeline-item {
   position: relative;
-  padding-left: 40px;
-  padding-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 40px;
 }
 
-.timeline-item:last-child {
-  padding-bottom: 0;
+.timeline-item:not(:last-child) {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.timeline-dot {
+.timeline-badge {
   position: absolute;
-  left: -21px;
-  top: 4px;
-  width: 16px;
-  height: 16px;
+  left: -41px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
-  background: #fff;
-  border: 3px solid var(--color-primary);
   z-index: 1;
 }
 
-.timeline-item.keynote .timeline-dot {
-  border-color: #f3584c;
-  background: linear-gradient(135deg, #0f83d3, #f3584c);
+.badge-blue {
+  background: #00ebfa;
+  box-shadow: 0 0 0 4px rgba(0, 235, 250, 0.12);
 }
 
-.timeline-item.break .timeline-dot {
-  border-color: #f3584c;
-  background: #f3584c;
+.badge-red {
+  background: #f90b0d;
+  box-shadow: 0 0 0 4px rgba(249, 11, 13, 0.12);
+}
+
+.timeline-content {
+  flex: 1;
+}
+
+.timeline-time-col {
+  flex-shrink: 0;
+  width: 120px;
 }
 
 .timeline-time {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
-  color: var(--color-primary);
-  margin-bottom: 8px;
+  color: #888;
+  margin: 0;
 }
 
-.timeline-card {
-  padding: 20px 24px;
-  border-radius: 12px;
-  background: #fff;
-  border: 1px solid #f0f0f0;
-  transition: all 0.3s;
-}
-
-.timeline-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  transform: translateX(4px);
-}
-
-.timeline-item.keynote .timeline-card {
-  border-left: 4px solid #f3584c;
-  background: linear-gradient(135deg, #fff 0%, #fff5f3 100%);
-}
-
-.timeline-item.break .timeline-card {
-  border-left: 4px solid #f3584c;
-  background: linear-gradient(135deg, #fff 0%, #fff5f3 100%);
-}
-
-.card-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-}
-
-.card-title {
-  font-size: 17px;
-  font-weight: 600;
+.timeline-title {
+  font-size: 20px;
+  font-weight: 700;
   color: var(--color-text);
-  flex: 1;
+  margin: 0 0 4px;
 }
 
-.badge-keynote {
-  font-size: 11px;
-  font-weight: 600;
-  padding: 2px 10px;
-  border-radius: 6px;
-  background: linear-gradient(90deg, #0f83d3, #f3584c);
-  color: #fff;
-  white-space: nowrap;
-}
-
-.badge-break {
-  font-size: 11px;
-  font-weight: 600;
-  padding: 2px 10px;
-  border-radius: 6px;
-  background: #f3584c;
-  color: #fff;
-  white-space: nowrap;
-}
-
-.card-speaker {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-
-.speaker-name {
+.timeline-desc {
   font-size: 14px;
-  font-weight: 600;
-  color: var(--color-text);
-}
-
-.speaker-company {
-  font-size: 13px;
   color: var(--color-text-secondary);
-}
-
-.card-desc {
-  font-size: 13px;
-  color: var(--color-text-secondary);
+  margin: 0;
   line-height: 1.6;
 }
 
-/* 分会场卡片 */
-.session-agenda {
-  max-width: 800px;
-  margin: 0 auto;
+.timeline-guest {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.guest-avatar {
+  width: 160px;
+  height: auto;
+  border-radius: 16px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.guest-meta {
   display: flex;
   flex-direction: column;
-  gap: 16px;
 }
 
-.agenda-card {
-  display: flex;
-  gap: 20px;
-  padding: 24px;
-  border-radius: 12px;
-  background: #fff;
-  border: 1px solid #f0f0f0;
-  transition: all 0.3s;
-}
-
-.agenda-card:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
-  transform: translateX(4px);
-}
-
-.agenda-time {
-  flex-shrink: 0;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-primary);
-  min-width: 120px;
-}
-
-.agenda-body {
-  flex: 1;
-}
-
-.agenda-title {
-  font-size: 17px;
-  font-weight: 600;
+.guest-meta strong {
+  font-size: 20px;
+  font-weight: 700;
   color: var(--color-text);
-  margin-bottom: 8px;
+  margin: 0 0 4px;
 }
 
-.agenda-speaker {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-
-.agenda-desc {
-  font-size: 13px;
+.guest-meta span {
+  font-size: 14px;
   color: var(--color-text-secondary);
-  line-height: 1.6;
 }
 
 @media (max-width: 768px) {
   .agenda { padding: 60px 0; }
-  .section-title { font-size: 28px; }
-  .tabs { gap: 8px; }
-  .tab { padding: 8px 16px; font-size: 13px; }
-  .timeline { padding-left: 12px; }
-  .timeline-item { padding-left: 28px; }
-  .timeline-dot { left: -17px; width: 12px; height: 12px; }
-  .timeline-card { padding: 16px; }
-  .card-title { font-size: 15px; }
-  .agenda-card {
+  .section-title { font-size: 48px; }
+  .session-cards { gap: 12px; }
+  .session-card { width: 160px; }
+  .session-arrow { width: 40px; height: 40px; right: -8px; }
+  .timeline-item {
     flex-direction: column;
-    gap: 8px;
-    padding: 16px;
+    align-items: flex-start;
+    gap: 12px;
   }
-  .agenda-time { min-width: auto; }
+  .timeline-guest {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title { font-size: 36px; }
 }
 </style>
