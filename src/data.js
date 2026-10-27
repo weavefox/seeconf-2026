@@ -15,6 +15,7 @@ export const navItems = [
   { label: '分享嘉宾', anchor: 'speakers' },
   { label: '分享议程', anchor: 'agenda' },
   { label: '特邀嘉宾', anchor: 'guests' },
+  { label: '特色展台', anchor: 'expo' },
   { label: '参会指南', anchor: 'guide' },
 ]
 
@@ -299,6 +300,18 @@ export const producers = [
   { name: '翁欣旦', title: '终端技术委员会负责人', company: '蚂蚁集团', session: '终端技术专场出品人' },
   { name: '徐达峰', title: '平台体验技术部负责人', company: '蚂蚁集团', session: 'AI Coding 专场出品人' },
   { name: '朱兴民', title: '支付宝前端平台负责人', company: '蚂蚁集团', session: '基础前端专场出品人' },
+]
+
+// 特色展台
+export const exhibitions = [
+  { name: '展台名称 01', description: '在这里展示项目简介与现场体验内容。' },
+  { name: '展台名称 02', description: '在这里展示项目简介与现场体验内容。' },
+  { name: '展台名称 03', description: '在这里展示项目简介与现场体验内容。' },
+  { name: '展台名称 04', description: '在这里展示项目简介与现场体验内容。' },
+  { name: '展台名称 05', description: '在这里展示项目简介与现场体验内容。' },
+  { name: '展台名称 06', description: '在这里展示项目简介与现场体验内容。' },
+  { name: '展台名称 07', description: '在这里展示项目简介与现场体验内容。' },
+  { name: '展台名称 08', description: '在这里展示项目简介与现场体验内容。' },
 ]
 
 // 开源项目 / 合作伙伴

@@ -24,7 +24,8 @@ useHead({
       <AgendaSection />
       <div class="section-divider"></div>
       <SpecialGuestsSection />
-      <!-- <ExpoSection /> -->
+      <div class="section-divider"></div>
+      <ExpoSection />
       <GuideSection />
     </main>
     <TheFooter />
