@@ -136,15 +136,16 @@ const getAvatar = (index) => {
 @media (max-width: 480px) {
   .section-title { font-size: 36px; }
   .guests-grid {
-    grid-template-columns: 1fr;
-    justify-items: center;
-  }
-  .guest-card {
-    max-width: 280px;
-    text-align: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
   }
   .guest-name {
-    justify-content: center;
+    margin-left: 16px;
+    font-size: 14px;
+  }
+  .guest-bio {
+    margin-left: 16px;
+    font-size: 12px;
   }
 }
 </style>
