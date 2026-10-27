@@ -10,8 +10,8 @@ const navColumns = [
   {
     title: '快速导航',
     links: [
-      { label: '分享嘉宾', anchor: 'speakers' },
-      { label: '会议议程', anchor: 'agenda' },
+      // { label: '分享嘉宾', anchor: 'speakers' },
+      // { label: '会议议程', anchor: 'agenda' },
       { label: '特邀嘉宾', anchor: 'guests' },
       { label: '特色展台', anchor: 'expo' },
       { label: '合作伙伴', anchor: 'partners' },
@@ -218,7 +218,7 @@ const navColumns = [
 .col-links {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 8px;
 }
 
 .col-links a {
