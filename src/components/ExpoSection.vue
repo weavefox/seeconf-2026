@@ -1,18 +1,5 @@
 <script setup>
 import { exhibitions } from '../data.js'
-
-const sessionCardBg = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/kJUaRo3LirwAAAAAQPAAAAgADiiAQFr/original'
-
-const icons = [
-  'M12 2L4 7v10l8 5 8-5V7l-8-5zM12 4.5L18 8v8l-6 3.5L6 16V8l6-3.5z',
-  'M4 4h10v10H4V4zm6 6h10v10H10V10z',
-  'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 4a6 6 0 1 1 0 12 6 6 0 0 1 0-12zm0 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
-  'M12 2L8 6h2v4H6v2H4l4 4 4-4h-2V6h2l-4-4zm6 8l-4 4 4 4 4-4-4-4z',
-  'M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z',
-  'M2 6l8 4-8 4V6zm10 0l8 4-8 4V6zm-5 2.5L12 11l5-2.5L12 6 7 8.5z',
-  'M12 2C8 6 4 8 4 12a8 8 0 0 0 16 0c0-4-4-6-8-10zm0 4c2 2 4 4 4 6a4 4 0 0 1-8 0c0-2 2-4 4-6z',
-  'M3 20h18v-2H3v2zm2-4h2v-6H5v6zm4 0h2V8H9v8zm4 0h2V4h-2v12zm4 0h2v-9h-2V16z',
-]
 </script>
 
 <template>
@@ -32,7 +19,6 @@ const icons = [
           :target="item.link ? '_blank' : undefined"
           :rel="item.link ? 'noopener' : undefined"
           class="expo-card"
-          :style="{ backgroundImage: `url(${sessionCardBg})` }"
         >
           <div class="expo-card-overlay">
             <div class="expo-card-top">
@@ -95,8 +81,6 @@ const icons = [
 .expo-card {
   border-radius: 8px;
   border: 1px solid #e0e0e0;
-  background-size: cover;
-  background-position: center;
   overflow: hidden;
   transition: transform 0.3s;
 }
