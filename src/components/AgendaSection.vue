@@ -48,7 +48,7 @@ const scrollSessionsNext = () => {
     <div class="container">
       <div class="section-header">
         <span class="section-tag">AGENDA / 2026</span>
-        <h2 class="section-title">分享议程</h2>
+        <h2 class="section-title">会议议程</h2>
       </div>
 
       <!-- 专场卡片选择 + 右箭头 -->
@@ -63,7 +63,6 @@ const scrollSessionsNext = () => {
             @click="selectSession(session.id)"
           >
             <div class="session-card-overlay">
-              <span v-if="session.isLive" class="live-badge">正在直播</span>
               <p class="session-type">{{ session.name }}</p>
               <h3 class="session-subtitle">{{ session.subtitle }}</h3>
             </div>

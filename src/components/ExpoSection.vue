@@ -24,29 +24,33 @@ const icons = [
       </div>
 
       <div class="expo-grid">
-        <div
+        <a
           v-for="(item, index) in exhibitions"
           :key="index"
+          :href="item.link"
+          target="_blank"
+          rel="noopener"
           class="expo-card"
           :style="{ backgroundImage: `url(${sessionCardBg})` }"
         >
           <div class="expo-card-overlay">
             <div class="expo-card-top">
-              <span class="expo-icon" :class="index % 2 === 0 ? 'icon-blue' : 'icon-red'">
-                <svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <span class="expo-icon">
+                <img v-if="item.logo" :src="item.logo" :alt="item.name" class="expo-logo" />
+                <svg v-else viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <path :d="icons[index % icons.length]" />
                 </svg>
               </span>
-              <a href="#" class="expo-arrow" aria-label="查看更多">
+              <span class="expo-arrow" aria-label="查看更多">
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M7 17L17 7M17 7H7M17 7v10" />
                 </svg>
-              </a>
+              </span>
             </div>
             <h3 class="expo-name">{{ item.name }}</h3>
             <p class="expo-desc">{{ item.description }}</p>
           </div>
-        </div>
+        </a>
       </div>
     </div>
   </section>
@@ -117,23 +121,27 @@ const icons = [
 }
 
 .expo-icon {
-  width: 48px;
   height: 48px;
-  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 
+.expo-logo {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
 .icon-blue {
-  color: #00ebfa;
-  background: rgba(0, 235, 250, 0.1);
+  color: var(--color-text-secondary);
+  background: transparent;
 }
 
 .icon-red {
-  color: #f90b0d;
-  background: rgba(249, 11, 13, 0.1);
+  color: var(--color-text-secondary);
+  background: transparent;
 }
 
 .expo-arrow {
