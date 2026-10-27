@@ -323,18 +323,16 @@ export const exhibitions = [
 
 // 合作伙伴
 export const partners = [
-  { name: 'UXACN', logo: '' },
-  { name: 'TF 技术前线 TechFrontier', logo: '' },
-  { name: '蚂蚁开源 ANT OPEN SOURCE', logo: '' },
-  { name: 'CFT 蚂蚁消费金融技术部', logo: '' },
-  { name: 'CSD 中国开发者社区', logo: '' },
-  { name: 'InfoQ', logo: '' },
-  { name: '掘金 JUEJIN', logo: '' },
-  { name: 'SegmentFault 思否', logo: '' },
-  { name: '开源中国 OSCN', logo: '' },
-  { name: '前端早早聊', logo: '' },
-  { name: '支付宝技术', logo: '' },
-  { name: '蚂蚁终端技术', logo: '' },
+  { name: '蚂蚁阿福', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Q86OQ455uroAAAAAS2AAAAgADiiDAQFr/256w_256h', link: '' },
+  { name: '蚂蚁开源', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/ddpmRqQj3uEAAAAAQQAAAAgADiiDAQFr/fmt.avif', link: 'https://github.com/antgroup' },
+  { name: '魔搭社区', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/PZfcSp9US2wAAAAAQHAAAAgADiiDAQFr/fmt.avif', link: 'https://www.modelscope.cn' },
+  { name: '百灵', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/lXz6Safe1GcAAAAAQWAAAAgADiiDAQFr/fmt.avif', link: 'https://www.ant-ling.com/' },
+  { name: 'InfoQ', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/e9eqSpHVRFYAAAAAQJAAAAgADiiDAQFr/fmt.avif', link: 'https://www.infoq.cn' },
+  { name: 'WeaveFox', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/ZAv4TKvxmvYAAAAAQEAAAAgADiiDAQFr/original', link: 'https://www.weavefox.cn' },
+  { name: '量子位', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/aKh8RIPWwj8AAAAAQFAAAAgADiiDAQFr/fmt.avif', link: 'https://www.qbitai.com/' },
+  { name: 'CSDN', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/mm4OSpNGpGUAAAAAQJAAAAgADiiDAQFr/fmt.avif', link: '' },
+  { name: '开源江湖', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/IVGSRIjfq6oAAAAAQ2AAAAgADiiDAQFr/fmt.avif', link: '' },
+  { name: '极星会', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/HMQGS4WP8WIAAAAAQMAAAAgADiiDAQFr/fmt.avif', link: 'https://www.gitfund.cn' },
 ]
 
 // 开源项目 / 合作伙伴

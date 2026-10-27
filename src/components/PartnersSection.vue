@@ -15,19 +15,20 @@ const duplicatedPartners = [...partners, ...partners]
 
     <div class="marquee">
       <div class="marquee-track">
-        <div
+        <component
+          :is="partner.link ? 'a' : 'div'"
           v-for="(partner, index) in duplicatedPartners"
           :key="index"
+          :href="partner.link || undefined"
+          :target="partner.link ? '_blank' : undefined"
+          rel="noopener"
           class="partner-card"
         >
           <div class="partner-logo">
-            <svg viewBox="0 0 24 24" width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="18" height="18" rx="3" />
-              <path d="M8 12h8M12 8v8" />
-            </svg>
+            <img :src="partner.logo" :alt="partner.name" />
           </div>
           <p class="partner-name">{{ partner.name }}</p>
-        </div>
+        </component>
       </div>
     </div>
   </section>
@@ -95,6 +96,8 @@ const duplicatedPartners = [...partners, ...partners]
   border-radius: 16px;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   transition: all 0.3s;
+  text-decoration: none;
+  color: inherit;
 }
 
 .partner-card:hover {
@@ -111,6 +114,14 @@ const duplicatedPartners = [...partners, ...partners]
   justify-content: center;
   color: var(--color-text-secondary);
   flex-shrink: 0;
+  overflow: hidden;
+  padding: 6px;
+}
+
+.partner-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .partner-card:hover .partner-logo {
