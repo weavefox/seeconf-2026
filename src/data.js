@@ -14,6 +14,7 @@ export const conferenceInfo = {
 export const navItems = [
   { label: '分享嘉宾', anchor: 'speakers' },
   { label: '分享议程', anchor: 'agenda' },
+  { label: '特邀嘉宾', anchor: 'guests' },
   { label: '参会指南', anchor: 'guide' },
 ]
 
@@ -278,6 +279,18 @@ export const speakers = [
   { name: '吴峰', nickname: '', title: '可视化技术负责人', company: '蚂蚁集团', session: 'visualization', avatar: '' },
   { name: '孙磊', nickname: '', title: '跨端引擎技术专家', company: '蚂蚁集团', session: 'terminal', avatar: '' },
   { name: '林晓', nickname: '', title: '创意编程专家', company: '蚂蚁集团', session: 'visualization', avatar: '' },
+]
+
+// 特邀嘉宾
+export const specialGuests = [
+  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
+  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
+  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
+  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
+  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
+  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
+  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
+  { name: '嘉宾姓名', nickname: '花名', title: '所在机构 · 职务', avatar: '' },
 ]
 
 // 出品人

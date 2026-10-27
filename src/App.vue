@@ -4,6 +4,7 @@ import TheNavbar from './components/TheNavbar.vue'
 import HeroBanner from './components/HeroBanner.vue'
 import AgendaSection from './components/AgendaSection.vue'
 import SpeakersSection from './components/SpeakersSection.vue'
+import SpecialGuestsSection from './components/SpecialGuestsSection.vue'
 import ExpoSection from './components/ExpoSection.vue'
 import GuideSection from './components/GuideSection.vue'
 import TheFooter from './components/TheFooter.vue'
@@ -21,6 +22,8 @@ useHead({
       <SpeakersSection />
       <div class="section-divider"></div>
       <AgendaSection />
+      <div class="section-divider"></div>
+      <SpecialGuestsSection />
       <!-- <ExpoSection /> -->
       <GuideSection />
     </main>
