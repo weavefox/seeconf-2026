@@ -65,7 +65,7 @@ const duplicatedPartners = [...partners, ...partners]
 
 .marquee {
   width: 100%;
-  overflow: visible;
+  overflow: hidden;
   padding: 10px 0;
 }
 
