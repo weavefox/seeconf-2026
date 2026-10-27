@@ -318,7 +318,7 @@ export const exhibitions = [
   { name: 'QMuse', description: 'QMuse 是支付宝旗下的 AI 原生生产力平台，融合自然语言与多模态生成能力，支持PC/移动双端低门槛创作网页/小程序/PPT 等多类型产物，出品即精品、产物即交付', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/IKacQ4qV_ocAAAAARBAAAAgADiiDAQFr/original', link: 'https://qmuse.cn/' },
   { name: '画眉', description: 'AI Native 创意生产平台，全面助力 超级个体 和 业务 快速生产高质量的图片、动效、视频、UI，用好创意驱动业务增长。过去一年累计完成 3.6 亿次生成。', logo: 'https://mdn.alipayobjects.com/huamei_9ip1jn/afts/img/A*tyd5RKlUt5IAAAAAAAAAAAAADn95AQ/original', link: 'https://idesign.alipay.com/' },
   { name: '千问办公', description: '千问办公是阿里巴巴全新推出的一站式 AI 办公平台。当前深度融入钉钉生态，实现与钉钉功能体系的无缝衔接；未来将进一步打通企业数据库及主流 åIM 工具，构建更广泛的连接能力。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/DzCTTra6k4MAAAAAQFAAAAgADiiDAQFr/original', link: 'https://qwenwork.cn' },
-  { name: 'Qoder', description: 'Qoder 是一个面向真实工作的 Agentic 平台，将 AI 带入软件开发、终端工作流、云端托管执行、日常办公和持续运行的数字岗位。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/29jjRZAGimcAAAAAQOAAAAgADiiDAQFr/original', link: 'https://qoder.cn/' },
+  // { name: 'Qoder', description: 'Qoder 是一个面向真实工作的 Agentic 平台，将 AI 带入软件开发、终端工作流、云端托管执行、日常办公和持续运行的数字岗位。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/29jjRZAGimcAAAAAQOAAAAgADiiDAQFr/original', link: 'https://qoder.cn/' },
   { name: '哆啦', description: '意图发生，供给抵达。哆啦是面向消费金融场景的 AI Native 生产与经营平台，围绕用户意图，连接需求理解、服务生成与按需交付，让合适的服务在用户需要时抵达。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/KHScQqyLEFAAAAAAQKAAAAgADiiDAQFr/original', link: '' }, // link: 'https://dora.antgroup.com' 
 ]
 
