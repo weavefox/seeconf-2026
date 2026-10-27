@@ -22,12 +22,12 @@ const duplicatedPartners = [...partners, ...partners]
           :href="partner.link || undefined"
           :target="partner.link ? '_blank' : undefined"
           rel="noopener"
-          class="partner-card"
+          :class="['partner-card', { 'partner-card--wide': partner.hideName }]"
         >
           <div class="partner-logo">
             <img :src="partner.logo" :alt="partner.name" />
           </div>
-          <p class="partner-name">{{ partner.name }}</p>
+          <p v-if="!partner.hideName" class="partner-name">{{ partner.name }}</p>
         </component>
       </div>
     </div>
@@ -78,7 +78,7 @@ const duplicatedPartners = [...partners, ...partners]
 }
 
 .marquee:hover .marquee-track {
-  animation-duration: 120s;
+  animation-play-state: paused;
 }
 
 @keyframes marquee-scroll {
@@ -89,8 +89,10 @@ const duplicatedPartners = [...partners, ...partners]
 .partner-card {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 16px;
   flex-shrink: 0;
+  width: 280px;
   padding: 20px 32px;
   border: 1px solid #e0e0e0;
   border-radius: 16px;
@@ -101,21 +103,18 @@ const duplicatedPartners = [...partners, ...partners]
 }
 
 .partner-card:hover {
-  transform: scale(1.15);
+  transform: scale(1.05);
 }
 
 .partner-logo {
   width: 72px;
   height: 72px;
   border-radius: 16px;
-  background: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-text-secondary);
   flex-shrink: 0;
   overflow: hidden;
-  padding: 6px;
 }
 
 .partner-logo img {
@@ -124,13 +123,17 @@ const duplicatedPartners = [...partners, ...partners]
   object-fit: contain;
 }
 
-.partner-card:hover .partner-logo {
-  background: #eee;
-  color: var(--color-text);
+.partner-card--wide .partner-logo {
+  width: auto;
+}
+
+.partner-card--wide .partner-logo img {
+  width: auto;
+  max-width: 200px;
 }
 
 .partner-name {
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
   color: var(--color-text);
   margin: 0;
