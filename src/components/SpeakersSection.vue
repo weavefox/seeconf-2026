@@ -69,7 +69,7 @@ const formatBio = (speaker) => {
 }
 
 .section-title {
-  font-size: 90px;
+  font-size: 60px;
   font-weight: 800;
   color: var(--color-text);
   line-height: 1.2;
