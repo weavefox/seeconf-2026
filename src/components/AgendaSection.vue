@@ -137,7 +137,7 @@ const scrollSessionsNext = () => {
 }
 
 .section-title {
-  font-size: 90px;
+  font-size: 60px;
   font-weight: 900;
   color: var(--color-text);
   line-height: 1.2;
@@ -400,7 +400,7 @@ const scrollSessionsNext = () => {
 
 @media (max-width: 768px) {
   .agenda { padding: 60px 0; }
-  .section-title { font-size: 48px; }
+  .section-title { font-size: 40px; }
   .session-cards { gap: 12px; }
   .session-card { width: 160px; }
   .session-arrow { width: 40px; height: 40px; right: -8px; }
@@ -415,6 +415,6 @@ const scrollSessionsNext = () => {
 }
 
 @media (max-width: 480px) {
-  .section-title { font-size: 36px; }
+  .section-title { font-size: 30px; }
 }
 </style>

@@ -56,7 +56,7 @@ const duplicatedPartners = [...partners, ...partners]
 }
 
 .section-title {
-  font-size: 90px;
+  font-size: 60px;
   font-weight: 900;
   color: var(--color-text);
   line-height: 1.2;
@@ -146,10 +146,10 @@ const duplicatedPartners = [...partners, ...partners]
 
 @media (max-width: 768px) {
   .partners { padding: 60px 0; }
-  .section-title { font-size: 48px; }
+  .section-title { font-size: 40px; }
 }
 
 @media (max-width: 480px) {
-  .section-title { font-size: 36px; }
+  .section-title { font-size: 30px; }
 }
 </style>

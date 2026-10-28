@@ -16,8 +16,8 @@ export const navItems = [
   // { label: '会议议程', anchor: 'agenda' },
   { label: '特邀嘉宾', anchor: 'guests' },
   { label: '特色展台', anchor: 'expo' },
-  { label: '合作伙伴', anchor: 'partners' },
   { label: '参会指南', anchor: 'guide' },
+  { label: '合作伙伴', anchor: 'partners' },
 ]
 
 // 专题列表
@@ -86,7 +86,7 @@ export const sessions = [
 ]
 
 // 议程数据
-const agendaTemplates = {
+export const agendaData = {
   main: [
     { time: '09:00 - 09:45', title: 'AI 时代的终端体验技术演进', description: '分享 AI 时代下终端体验技术的战略思考与演进方向', speaker: '翁欣旦', speakerTitle: '蚂蚁集团 终端技术委员会负责人' },
     { time: '10:00 - 10:45', title: 'AI 重塑研发流程：从代码生成到智能架构', description: '探讨 AI 如何重塑从需求到交付的研发全链路', speaker: '徐达峰', speakerTitle: '蚂蚁集团 平台体验技术部负责人' },
@@ -149,120 +149,6 @@ const agendaTemplates = {
   ],
 }
 
-export const agendaData = agendaTemplates
-
-// 主会场日程
-export const mainAgenda = [
-  {
-    time: '08:30 - 09:00',
-    title: '签到入场',
-    speaker: '',
-    company: '',
-    description: '参会签到，领取资料',
-  },
-  {
-    time: '09:00 - 09:15',
-    title: '大会开场致辞',
-    speaker: '李俊奎',
-    company: '蚂蚁集团 支付宝技术部负责人',
-    description: '大会开场致辞，介绍 SEE Conf 2026 的主题与愿景',
-  },
-  {
-    time: '09:15 - 10:00',
-    title: 'AI 时代的终端体验技术演进',
-    speaker: '翁欣旦',
-    company: '蚂蚁集团 终端技术委员会负责人',
-    description: 'Keynote：分享 AI 时代下终端体验技术的战略思考与演进方向',
-    isKeynote: true,
-  },
-  {
-    time: '10:00 - 10:30',
-    title: '出品人开场',
-    speaker: '各专题出品人',
-    company: '蚂蚁集团',
-    description: '五大平行专题亮点预告，帮助参会者选择感兴趣的专题',
-  },
-  {
-    time: '10:30 - 11:30',
-    title: 'AI 重塑研发流程：从代码生成到智能架构',
-    speaker: '徐达峰',
-    company: '蚂蚁集团 平台体验技术部负责人',
-    description: '探讨 AI 如何重塑从需求到交付的研发全链路，分享蚂蚁在 AI Coding 领域的实践',
-    isKeynote: true,
-  },
-  {
-    time: '11:30 - 12:00',
-    title: '开源生态与体验技术的融合发展',
-    speaker: '江波',
-    company: '蚂蚁集团 开源技术增长负责人',
-    description: '分享蚂蚁开源生态建设的经验与体验技术开源的未来方向',
-  },
-  {
-    time: '12:00 - 13:30',
-    title: '中场休息 & 乐队演出 & 技术展台',
-    speaker: '',
-    company: '',
-    description: '午餐时间，现场乐队演出，技术展台参观交流',
-    isBreak: true,
-  },
-  {
-    time: '13:30 - 14:15',
-    title: 'AI 原生时代的用户体验设计',
-    speaker: '朱兴民',
-    company: '蚂蚁集团 支付宝前端平台负责人',
-    description: '探讨 AI 原生应用如何重新定义用户体验设计的方法论与实践',
-    isKeynote: true,
-  },
-  {
-    time: '14:15 - 15:00',
-    title: '从 GUI 到 LUI：交互范式的范式转移',
-    speaker: '徐文彬',
-    company: 'LobeHub 创始人',
-    description: '从图形界面到语言界面，探索 AI 时代交互设计的新范式',
-  },
-  {
-    time: '15:00 - 15:30',
-    title: '大会总结与展望',
-    speaker: '大会组委会',
-    company: '蚂蚁集团',
-    description: '大会总结回顾，SEE Conf 未来展望',
-  },
-]
-
-// 各专题日程
-export const sessionAgenda = {
-  'ai-coding': [
-    { time: '13:30 - 14:00', title: 'AI 代码生成的质量保障体系', speaker: '张明', company: '蚂蚁集团', description: '如何构建 AI 生成代码的质量评估与保障机制' },
-    { time: '14:00 - 14:30', title: '智能研发助手的设计哲学', speaker: '李亚飞', company: 'Clacky.ai CEO', description: '从用户需求到智能辅助的设计思考' },
-    { time: '14:30 - 15:00', title: 'AI 驱动的自动化测试实践', speaker: '陈伟', company: '蚂蚁集团', description: 'AI 在测试用例生成与执行中的落地实践' },
-    { time: '15:00 - 15:30', title: '大模型时代的代码搜索与推荐', speaker: '叶震杰', company: 'ZenMux.ai', description: '基于大模型的智能代码搜索与推荐系统' },
-  ],
-  'frontend': [
-    { time: '13:30 - 14:00', title: '微前端架构的演进与实践', speaker: '赵利超', company: '蚂蚁集团', description: '蚂蚁微前端体系从 qiankun 到新一代架构的演进' },
-    { time: '14:00 - 14:30', title: '构建工具链的性能优化之路', speaker: '刘洋', company: '蚂蚁集团', description: '从 Webpack 到 Rspack，构建工具的性能突破' },
-    { time: '14:30 - 15:00', title: '设计系统的规模化落地', speaker: '王芳', company: '蚂蚁集团', description: 'Ant Design 设计系统的企业级落地经验' },
-    { time: '15:00 - 15:30', title: '前端性能监控与优化实战', speaker: '周杰', company: '蚂蚁集团', description: '从指标到优化，前端性能全链路监控实践' },
-  ],
-  'visualization': [
-    { time: '13:30 - 14:00', title: '大数据可视化的性能突破', speaker: '吴峰', company: '蚂蚁集团', description: '百万级数据点的高性能渲染方案' },
-    { time: '14:00 - 14:30', title: '3D 交互体验设计实践', speaker: '党宇航', company: 'Tripo VAST', description: 'Web 端 3D 交互体验的技术与设计融合' },
-    { time: '14:30 - 15:00', title: '创意编程与生成艺术', speaker: '林晓', company: '蚂蚁集团', description: '用代码创造视觉艺术的探索与实践' },
-    { time: '15:00 - 15:30', title: '数据驱动的动效设计', speaker: '黄琪', company: '蚂蚁集团', description: '从数据到动效，构建数据驱动的交互体验' },
-  ],
-  'terminal': [
-    { time: '13:30 - 14:00', title: '端侧 AI Agent 的架构与实践', speaker: '许德刚', company: 'Rokid', description: '端侧 AI Agent 的架构设计与落地实践' },
-    { time: '14:00 - 14:30', title: '跨端渲染引擎的技术演进', speaker: '孙磊', company: '蚂蚁集团', description: '一次编写多端运行的跨端渲染引擎设计' },
-    { time: '14:30 - 15:00', title: '视觉大模型驱动的 GUI 感知', speaker: '杨帆', company: '蚂蚁集团', description: '视觉大模型在 GUI 自动化中的应用探索' },
-    { time: '15:00 - 15:30', title: '端智能：从云到端的 AI 落地', speaker: '郑凯', company: '蚂蚁集团', description: '端侧 AI 推理优化与工程实践' },
-  ],
-  'see-next': [
-    { time: '13:30 - 14:00', title: 'AI 原生应用的体验设计', speaker: '徐文彬', company: 'LobeHub', description: 'AI 原生时代的应用体验设计方法论' },
-    { time: '14:00 - 14:30', title: '空间计算与交互范式革新', speaker: '许德刚', company: 'Rokid', description: '空间计算时代的交互设计探索' },
-    { time: '14:30 - 15:00', title: '技术驱动下的体验未来', speaker: '朱兴民', company: '蚂蚁集团', description: '前沿技术如何驱动用户体验的持续进化' },
-    { time: '15:00 - 15:30', title: '圆桌讨论：体验技术的下一个十年', speaker: '全体讲者', company: '', description: '讲者圆桌讨论，共话体验技术的未来方向' },
-  ],
-}
-
 // 讲者列表
 export const speakers = [
   { name: '李俊奎', nickname: '向秀', title: '支付宝技术部负责人', company: '蚂蚁集团', session: 'main', avatar: '' },
@@ -285,23 +171,90 @@ export const speakers = [
 
 // 特邀嘉宾
 export const specialGuests = [
-  { name: '何征宇', nickname: '梁纥', title: '蚂蚁集团 · CTO', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/dPmMTIb6mFEAAAAAVXAAAAgADiiDAQFr/original' }, // 蓝
-  { name: '郭虹宇', nickname: '老郭', title: '淘天集团 · 淘宝终端技术负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/zhWVQJ9fl8wAAAAAWFAAAAgADiiDAQFr/original' },// 红背景
-  { name: '郭旻桢', nickname: '臻儿', title: '蚂蚁集团 · 支付宝 AI 创新产品中心负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/hclxS4p2cMoAAAAAVpAAAAgADiiDAQFr/original' },// 蓝
-  { name: '王保平', nickname: '玉伯', title: 'YouMind · 创始人 & CEO', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/JdPbRoMkZugAAAAAWiAAAAgADiiDAQFr/original' }, // 红
-  { name: '翁欣旦', nickname: '钱唐', title: '蚂蚁集团 · 终端技术委员会负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/OQvVSKw2A9AAAAAAW8AAAAgADiiDAQFr/original' },// 蓝背景
-  { name: '王姣', nickname: '杜素', title: '蚂蚁集团 · 支付宝设计负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/VrCeTqfsAlgAAAAAW3AAAAgADiiDAQFr/original' },// 红背景
-  { name: '于海泽', nickname: '镜同', title: '蚂蚁集团 · AI 支付产品总监', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/sdgiT4FDDTAAAAAAWSAAAAgADiiDAQFr/original' },// 红
-  { name: '舒文亮', nickname: '舒文', title: '中国计算机学会 TF 智能前端 SIG 主席，蚂蚁集团 · 财富保险事业群终端负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/m8aHRrLDZ-4AAAAAVUAAAAgADiiDAQFr/original' },// 蓝背景
-  { name: '管维刚', nickname: '古云', title: '网商银行 · 普惠信贷体验技术部负责人', avatar: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/vkW8S72Dhv0AAAAAVqAAAAgADiiDAQFr/original' },// 红
-]
-
-// 出品人
-export const producers = [
-  { name: '李俊奎', title: '支付宝技术部负责人', company: '蚂蚁集团', session: '大会总出品人' },
-  { name: '翁欣旦', title: '终端技术委员会负责人', company: '蚂蚁集团', session: '终端技术专题出品人' },
-  { name: '徐达峰', title: '平台体验技术部负责人', company: '蚂蚁集团', session: 'AI Coding 专题出品人' },
-  { name: '朱兴民', title: '支付宝前端平台负责人', company: '蚂蚁集团', session: '基础前端专题出品人' },
+  {
+    name: '何征宇',
+    nickname: '梁纥',
+    title: '蚂蚁集团 · CTO',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/ETOVSLjIvU8AAAAAT7AAAAgADiiDAQFr/original',
+    avatarRed: ''
+  },
+  {
+    name: '郭虹宇',
+    nickname: '老郭',
+    title: '淘天集团 · 淘宝终端技术负责人',
+    avatarBlue: '',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Nl0jSLG5oRIAAAAAVjAAAAgADiiDAQFr/original'
+  },
+  {
+    name: '郭旻桢',
+    nickname: '臻儿',
+    title: '蚂蚁集团 · 支付宝 AI 创新产品中心负责人',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/AEw4R6TeJz8AAAAAT4AAAAgADiiDAQFr/original',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/2wYgTIWsUMkAAAAAReAAAAgADiiDAQFr/original'
+  },
+  {
+    name: '郑叶飞',
+    nickname: '圆心',
+    title: '阿里国际 · AliExpress CTO',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/aBCqS6Aod14AAAAAUjAAAAgADiiDAQFr/original',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/AMtSS44hacEAAAAAU-AAAAgADiiDAQFr/original'
+  },
+  {
+    name: '王保平',
+    nickname: '玉伯',
+    title: 'YouMind · 创始人 & CEO',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/ItyQS5pPFywAAAAAUAAAAAgADiiDAQFr/original',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/tDmxT4tWA7oAAAAAUNAAAAgADiiDAQFr/original'
+  },
+  {
+    name: '翁欣旦',
+    nickname: '钱唐',
+    title: '蚂蚁集团 · 终端技术委员会负责人',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/o0bkSYCqwhsAAAAAT5AAAAgADiiDAQFr/original',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/6OiZQ7eDyMUAAAAAUqAAAAgADiiDAQFr/original'
+  },
+  {
+    name: '王姣',
+    nickname: '杜素',
+    title: '蚂蚁集团 · 支付宝设计负责人',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/5zdjQaqmrzcAAAAAUiAAAAgADiiDAQFr/original',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/-VTqRbVyF80AAAAAUZAAAAgADiiDAQFr/original'
+  },
+  {
+    name: '于海泽',
+    nickname: '镜同',
+    title: '蚂蚁集团 · AI 支付产品总监',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/gUmuQJYf8uoAAAAAWVAAAAgADiiDAQFr/original',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/WDd1R4MiNCIAAAAAUCAAAAgADiiDAQFr/original'
+  },
+  {
+    name: '舒文亮',
+    nickname: '舒文',
+    title: '中国计算机学会 TF 智能前端 SIG 主席，蚂蚁集团 · 财富保险事业群终端负责人',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/nN6FQIa_JGAAAAAAT5AAAAgADiiDAQFr/original',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/a6MATKvK0xkAAAAAUTAAAAgADiiDAQFr/original'
+  },
+  {
+    name: '管维刚',
+    nickname: '古云',
+    title: '网商银行 · 普惠信贷体验技术部负责人',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/movBRaaXmNQAAAAAUHAAAAgADiiDAQFr/original',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/wSP0Q6m_ALkAAAAARhAAAAgADiiDAQFr/original'
+  },
+  {
+    name: '偏右',
+    nickname: '朱兴民',
+    title: '蚂蚁集团 · 阿宝产品评测负责人',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/dCTHSqpNwAUAAAAAT5AAAAgADiiDAQFr/original',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/AJZERKSeXDUAAAAAUPAAAAgADiiDAQFr/original'
+  },
+  {
+    name: '夏炎',
+    nickname: '莫非',
+    title: '阿里巴巴 · 资深技术专家',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Sld-RLjH_-oAAAAATPAAAAgADiiDAQFr/original',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/_TMuQ5A9mG0AAAAAVaAAAAgADiiDAQFr/original'
+  },
 ]
 
 // 特色展台
@@ -319,7 +272,7 @@ export const exhibitions = [
   { name: 'Qoder', description: 'Qoder 是一个面向真实工作的 Agentic 平台，将 AI 带入软件开发、终端工作流、云端托管执行、日常办公和持续运行的数字岗位。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/29jjRZAGimcAAAAAQOAAAAgADiiDAQFr/original', link: 'https://qoder.cn/' },
   { name: 'QMuse', description: 'QMuse 是支付宝旗下的 AI 原生生产力平台，融合自然语言与多模态生成能力，支持PC/移动双端低门槛创作网页/小程序/PPT 等多类型产物，出品即精品、产物即交付', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/IKacQ4qV_ocAAAAARBAAAAgADiiDAQFr/original', link: 'https://qmuse.cn/' },
   { name: '画眉', description: 'AI Native 创意生产平台，全面助力 超级个体 和 业务 快速生产高质量的图片、动效、视频、UI，用好创意驱动业务增长。过去一年累计完成 3.6 亿次生成。', logo: 'https://mdn.alipayobjects.com/huamei_9ip1jn/afts/img/A*tyd5RKlUt5IAAAAAAAAAAAAADn95AQ/original', link: 'https://idesign.alipay.com/' },
-  { name: '哆啦', description: '意图发生，供给抵达。哆啦是面向消费金融场景的 AI Native 生产与经营平台，围绕用户意图，连接需求理解、服务生成与按需交付，让合适的服务在用户需要时抵达。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/KHScQqyLEFAAAAAAQKAAAAgADiiDAQFr/original', link: '' }, // link: 'https://dora.antgroup.com' 
+  { name: '哆啦', description: '意图发生，供给抵达。哆啦是面向消费金融场景的 AI Native 生产与经营平台，围绕用户意图，连接需求理解、服务生成与按需交付，让合适的服务在用户需要时抵达。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/KHScQqyLEFAAAAAAQKAAAAgADiiDAQFr/original', link: 'https://dora.antgroup.com' },
 ]
 
 // 合作伙伴（hideName 表示 logo 已含品牌名，不再重复显示名称）
@@ -334,18 +287,6 @@ export const partners = [
   { name: 'CSDN', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/mm4OSpNGpGUAAAAAQJAAAAgADiiDAQFr/fmt.avif', link: '', hideName: true },
   { name: '开源江湖', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/IVGSRIjfq6oAAAAAQ2AAAAgADiiDAQFr/fmt.avif', link: '', hideName: true },
   { name: '极星会', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/HMQGS4WP8WIAAAAAQMAAAAgADiiDAQFr/fmt.avif', link: 'https://www.gitfund.cn', hideName: true },
-]
-
-// 开源项目 / 合作伙伴
-export const openSourceProjects = [
-  { name: 'Ant Design', description: '企业级 UI 设计语言与组件库', url: 'https://ant.design' },
-  { name: 'Umi', description: '可插拔的企业级前端框架', url: 'https://umijs.org' },
-  { name: 'qiankun', description: '微前端框架', url: 'https://qiankun.umijs.org' },
-  { name: 'Dva', description: '数据流方案', url: 'https://dvajs.com' },
-  { name: 'L7', description: '地理空间数据可视化', url: 'https://l7.antv.antgroup.com' },
-  { name: 'G6', description: '图可视化与图分析引擎', url: 'https://g6.antv.antgroup.com' },
-  { name: 'AntV', description: '数据可视化解决方案', url: 'https://antv.antgroup.com' },
-  { name: 'WeaveFox', description: 'AI 驱动的研发效能平台', url: '#' },
 ]
 
 // 往届回顾

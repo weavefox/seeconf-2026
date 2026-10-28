@@ -27,9 +27,9 @@ useHead({
       <div class="section-divider"></div>
       <ExpoSection />
       <div class="section-divider"></div>
-      <PartnersSection />
-      <div class="section-divider"></div>
       <GuideSection />
+      <div class="section-divider"></div>
+      <PartnersSection />
     </main>
     <TheFooter />
   </div>

@@ -70,7 +70,7 @@ import { exhibitions } from '../data.js'
 }
 
 .section-title {
-  font-size: 90px;
+  font-size: 60px;
   font-weight: 900;
   color: var(--color-text);
   line-height: 1.2;
@@ -169,7 +169,7 @@ import { exhibitions } from '../data.js'
 
 @media (max-width: 768px) {
   .expo { padding: 60px 0; }
-  .section-title { font-size: 48px; }
+  .section-title { font-size: 40px; }
   .expo-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -177,7 +177,7 @@ import { exhibitions } from '../data.js'
 }
 
 @media (max-width: 480px) {
-  .section-title { font-size: 36px; }
+  .section-title { font-size: 30px; }
   .expo-grid {
     grid-template-columns: 1fr;
   }

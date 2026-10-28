@@ -14,8 +14,8 @@ const navColumns = [
       // { label: '会议议程', anchor: 'agenda' },
       { label: '特邀嘉宾', anchor: 'guests' },
       { label: '特色展台', anchor: 'expo' },
-      { label: '合作伙伴', anchor: 'partners' },
       { label: '参会指南', anchor: 'guide' },
+      { label: '合作伙伴', anchor: 'partners' },
     ],
   },
 ]

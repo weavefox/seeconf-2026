@@ -51,6 +51,11 @@ const transportInfo = [
 <template>
   <section id="guide" class="guide">
     <div class="container">
+      <div class="section-header">
+        <span class="section-tag">GUIDE / 2026</span>
+        <h2 class="section-title">参会指南</h2>
+      </div>
+
       <div class="guide-layout">
         <div class="guide-left">
           <div class="guide-left-inner">
@@ -112,6 +117,28 @@ const transportInfo = [
 .guide {
   padding: 100px 0 48px;
   background: #fff;
+}
+
+.section-header {
+  text-align: left;
+  margin-bottom: 48px;
+}
+
+.section-tag {
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-size: 60px;
+  font-weight: 900;
+  color: var(--color-text);
+  line-height: 1.2;
+  text-align: left;
 }
 
 .guide-layout {
@@ -259,9 +286,15 @@ const transportInfo = [
   .container {
     padding: 0 8%;
   }
+  .section-header { margin-bottom: 32px; }
+  .section-title { font-size: 40px; }
   .guide-layout {
     grid-template-columns: 1fr;
     gap: 32px;
   }
+}
+
+@media (max-width: 480px) {
+  .section-title { font-size: 30px; }
 }
 </style>

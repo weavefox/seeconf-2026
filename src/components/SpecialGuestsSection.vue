@@ -1,13 +1,12 @@
 <script setup>
 import { specialGuests } from '../data.js'
 
-const avatarRed = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/IKJ3RJtJL_QAAAAAQmAAAAgADiiDAQFr/original'
-const avatarBlue = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/iL5aSretd-wAAAAAQbAAAAgADiiDAQFr/original'
-
 const getAvatar = (index) => {
   const row = Math.floor(index / 4)
   const col = index % 4
-  return (row + col) % 2 === 0 ? avatarBlue : avatarRed
+  const isBlue = (row + col) % 2 === 0
+  const guest = specialGuests[index]
+  return isBlue ? guest.avatarBlue : guest.avatarRed
 }
 </script>
 
@@ -27,7 +26,7 @@ const getAvatar = (index) => {
         >
           <img
             class="guest-avatar"
-            :src="guest.avatar"
+            :src="getAvatar(index)"
             alt="特邀嘉宾头像"
           />
           <p class="guest-name">
@@ -62,7 +61,7 @@ const getAvatar = (index) => {
 }
 
 .section-title {
-  font-size: 90px;
+  font-size: 60px;
   font-weight: 900;
   color: var(--color-text);
   line-height: 1.2;
@@ -124,7 +123,7 @@ const getAvatar = (index) => {
 
 @media (max-width: 768px) {
   .guests { padding: 60px 0; }
-  .section-title { font-size: 48px; }
+  .section-title { font-size: 40px; }
   .guests-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -134,7 +133,7 @@ const getAvatar = (index) => {
 }
 
 @media (max-width: 480px) {
-  .section-title { font-size: 36px; }
+  .section-title { font-size: 30px; }
   .guests-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
