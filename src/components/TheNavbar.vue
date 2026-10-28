@@ -3,11 +3,13 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { navItems, conferenceInfo, pastConferences } from '../data.js'
 
 const scrolled = ref(false)
+const pastFirstScreen = ref(false)
 const mobileMenuOpen = ref(false)
 const pastDropdownOpen = ref(false)
 
 const handleScroll = () => {
   scrolled.value = window.scrollY > 60
+  pastFirstScreen.value = window.scrollY > window.innerHeight * 0.8
 }
 
 const scrollTo = (anchor) => {
@@ -81,6 +83,14 @@ onUnmounted(() => {
           </div>
         </div>
       </nav>
+
+      <a
+        class="nav-buy-btn"
+        :class="{ show: pastFirstScreen }"
+        href="https://www.bagevent.com/event/SEEConf2026"
+        target="_blank"
+        rel="noopener"
+      >立即购票<span class="nav-btn-arrow">↗</span></a>
 
       <button class="mobile-toggle" @click="mobileMenuOpen = !mobileMenuOpen">
         <span></span>
@@ -268,6 +278,42 @@ onUnmounted(() => {
   background: rgba(0, 0, 0, 0.04);
 }
 
+.nav-buy-btn {
+  max-width: 0;
+  margin-left: 0;
+  padding: 0;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: #1a1a1a;
+  border-radius: 48px;
+  white-space: nowrap;
+  text-decoration: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: max-width 0.3s ease, margin-left 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-buy-btn.show {
+  max-width: 200px;
+  margin-left: 20px;
+  padding: 7px 22px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-buy-btn:hover {
+  background: #333;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn-arrow {
+  margin-left: 2px;
+  font-size: 12px;
+}
+
 .mobile-toggle {
   margin-left: 16px;
   display: none;
@@ -290,6 +336,10 @@ onUnmounted(() => {
     padding: 0 16px;
   }
 
+  .navbar::after {
+    display: none;
+  }
+
   .logo-img {
     height: 22px;
   }
@@ -301,7 +351,7 @@ onUnmounted(() => {
     right: 0;
     flex-direction: column;
     gap: 0;
-    background: rgba(255, 255, 255, 0.86);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(24px) saturate(1.4);
     -webkit-backdrop-filter: blur(24px) saturate(1.4);
     padding: 0;
