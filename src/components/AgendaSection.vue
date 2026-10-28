@@ -51,7 +51,7 @@ const scrollSessionsNext = () => {
         <h2 class="section-title">会议议程</h2>
       </div>
 
-      <!-- 专场卡片选择 + 右箭头 -->
+      <!-- 专题卡片选择 + 右箭头 -->
       <div class="session-wrapper">
         <div ref="sessionSliderRef" class="session-cards" @scroll="onSliderScroll">
           <div
@@ -144,7 +144,7 @@ const scrollSessionsNext = () => {
   text-align: left;
 }
 
-/* 专场卡片 + 箭头 */
+/* 专题卡片 + 箭头 */
 .session-wrapper {
   position: relative;
   margin-bottom: 48px;

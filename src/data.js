@@ -20,7 +20,7 @@ export const navItems = [
   { label: '参会指南', anchor: 'guide' },
 ]
 
-// 专场列表
+// 专题列表
 export const sessions = [
   {
     id: 'main',
@@ -31,55 +31,55 @@ export const sessions = [
   },
   {
     id: 'ai-experience',
-    name: '分会场',
+    name: '专题',
     subtitle: 'AI 创新体验',
     color: '#0f83d3',
   },
   {
     id: 'ai-engineering',
-    name: '分会场',
+    name: '专题',
     subtitle: '卓越 AI 工程实践',
     color: '#12a7df',
   },
   {
     id: 'ai-interaction',
-    name: '分会场',
+    name: '专题',
     subtitle: 'AI 新交互与多端',
     color: '#29bae5',
   },
   {
     id: 'see-next',
-    name: '分会场',
+    name: '专题',
     subtitle: 'SEE Next',
     color: '#f3584c',
   },
   {
     id: 'tech-infra',
-    name: '分会场',
+    name: '专题',
     subtitle: '技术基础设施',
     color: '#0a5fa5',
   },
   {
     id: 'design-system',
-    name: '分会场',
+    name: '专题',
     subtitle: '设计体系与体验',
     color: '#12a7df',
   },
   {
     id: 'data-viz',
-    name: '分会场',
+    name: '专题',
     subtitle: '数据可视化',
     color: '#f39c8c',
   },
   {
     id: 'dev-efficiency',
-    name: '分会场',
+    name: '专题',
     subtitle: '研发效能',
     color: '#29bae5',
   },
   {
     id: 'open-source',
-    name: '分会场',
+    name: '专题',
     subtitle: '开源生态',
     color: '#0f83d3',
   },
@@ -178,9 +178,9 @@ export const mainAgenda = [
   {
     time: '10:00 - 10:30',
     title: '出品人开场',
-    speaker: '各专场出品人',
+    speaker: '各专题出品人',
     company: '蚂蚁集团',
-    description: '五大平行专场主题与亮点预告，帮助参会者选择感兴趣的分会场',
+    description: '五大平行专题亮点预告，帮助参会者选择感兴趣的专题',
   },
   {
     time: '10:30 - 11:30',
@@ -229,7 +229,7 @@ export const mainAgenda = [
   },
 ]
 
-// 各分会场日程
+// 各专题日程
 export const sessionAgenda = {
   'ai-coding': [
     { time: '13:30 - 14:00', title: 'AI 代码生成的质量保障体系', speaker: '张明', company: '蚂蚁集团', description: '如何构建 AI 生成代码的质量评估与保障机制' },
@@ -299,26 +299,26 @@ export const specialGuests = [
 // 出品人
 export const producers = [
   { name: '李俊奎', title: '支付宝技术部负责人', company: '蚂蚁集团', session: '大会总出品人' },
-  { name: '翁欣旦', title: '终端技术委员会负责人', company: '蚂蚁集团', session: '终端技术专场出品人' },
-  { name: '徐达峰', title: '平台体验技术部负责人', company: '蚂蚁集团', session: 'AI Coding 专场出品人' },
-  { name: '朱兴民', title: '支付宝前端平台负责人', company: '蚂蚁集团', session: '基础前端专场出品人' },
+  { name: '翁欣旦', title: '终端技术委员会负责人', company: '蚂蚁集团', session: '终端技术专题出品人' },
+  { name: '徐达峰', title: '平台体验技术部负责人', company: '蚂蚁集团', session: 'AI Coding 专题出品人' },
+  { name: '朱兴民', title: '支付宝前端平台负责人', company: '蚂蚁集团', session: '基础前端专题出品人' },
 ]
 
 // 特色展台
 export const exhibitions = [
-  { name: '蚂蚁阿福', description: '你的 AI 医生朋友。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Q86OQ455uroAAAAAS2AAAAgADiiDAQFr/256w_256h', link: '' },
-  { name: '灵光', description: '灵光，能管事的个人助理。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Ffu4QKE_p6EAAAAAgCAAAAgADiiDAQFr/original', link: 'https://www.lingguang.com/' },
+  { name: '蚂蚁阿福', description: '你的 AI 健康朋友。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Q86OQ455uroAAAAAS2AAAAgADiiDAQFr/256w_256h', link: '' },
+  { name: '灵光', description: '灵光，能管事的个人助理。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/fgPETaAe-k8AAAAAcNAAAAgADiiDAQFr/fmt.avif', link: 'https://www.lingguang.com/' },
   { name: '百灵', description: '为真实世界而生的开放智能。Open intelligence for the real-world.', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/lXz6Safe1GcAAAAAQWAAAAgADiiDAQFr/original', link: 'https://www.ant-ling.com/' },
   { name: 'AI 付', description: '以创新的 AI 支付助力AI时代。Powering the AI Era with Innovative AI Payments.', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/JwfPSq2DBxQAAAAAQFAAAAgADiiDAQFr/original', link: 'https://aipay.alipay.com/' },
-  { name: '阿宝', description: '作为 AI 版支付宝，阿宝是你的专属 Personal Agent 生活助手，现设立千万奖池发起智能体涌现奖大赛，旨在征集有用、有趣的生活消费智能体和 Agent、Skill，赋能开发者及其智能体作品商业潜力，落地支付宝生态。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/hpbmSKcqrngAAAAAgEAAAAgADiiDAQFr/original', link: 'https://abaoemerge.alipay.com' },
+  { name: '阿宝', description: '作为 AI 版支付宝，阿宝是你的专属 Personal Agent 生活助手，现设立千万奖池发起智能体涌现奖大赛，旨在征集有用、有趣的生活消费智能体和 Agent、Skill，赋能开发者及其智能体作品商业潜力，落地支付宝生态。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/hpbmSKcqrngAAAAAgEAAAAgADiiDAQFr/512w_512h', link: 'https://abaoemerge.alipay.com' },
+  { name: '千问办公', description: '千问办公是阿里巴巴全新推出的一站式 AI 办公平台。当前深度融入钉钉生态，实现与钉钉功能体系的无缝衔接；未来将进一步打通企业数据库及主流 åIM 工具，构建更广泛的连接能力。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/DzCTTra6k4MAAAAAQFAAAAgADiiDAQFr/original', link: 'https://qwenwork.cn', logoHeight: 36 },
   { name: 'WeaveFox', description: 'AI 全栈应用创作平台，通过自然语言对话，自由创造个人专属的工具与独立应用，快速实现创意变现。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/ZAv4TKvxmvYAAAAAQEAAAAgADiiDAQFr/original', link: 'https://www.weavefox.cn/' },
+  { name: 'Ant Design', description: 'Ant Design 是蚂蚁集团开源的企业级设计体系，提供设计规范、高质量 React 组件及配套生态。通过灵活的主题定制与 AI 友好的开发能力，帮助设计者和开发者高效构建风格统一、富有个性的产品体验。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/2eedSL8R2lUAAAAAQLAAAAgADiiDAQFr/original', link: 'https://ant.design/' },
   { name: 'AntV', description: '蚂蚁企业级 AI 数据可视化解决方案，让人们在数据世界里获得视觉化思考能力。Turning data into a visual language for better thinking.', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/RSVoSYTISmYAAAAAQDAAAAgADiiDAQFr/original', link: 'https://antv.antgroup.com/' },
   { name: 'Galacean', description: 'Galacean Engine 是蚂蚁集团开源的 AI-Native 图形与游戏引擎，秉承 AI-First、移动端优先、Web 优先的设计理念，让创作者通过 Harness，以自然语言构建游戏与 3D 互动应用，将一个念头变成可探索、可交互的数字世界。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/8eM2T5UX840AAAAAQwAAAAgADiiDAQFr/original', link: 'https://galacean.antgroup.com/engine' },
-  { name: 'Ant Design', description: 'Ant Design 是蚂蚁集团开源的企业级设计体系，提供设计规范、高质量 React 组件及配套生态。通过灵活的主题定制与 AI 友好的开发能力，帮助设计者和开发者高效构建风格统一、富有个性的产品体验。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/2eedSL8R2lUAAAAAQLAAAAgADiiDAQFr/original', link: 'https://ant.design/' },
+  // { name: 'Qoder', description: 'Qoder 是一个面向真实工作的 Agentic 平台，将 AI 带入软件开发、终端工作流、云端托管执行、日常办公和持续运行的数字岗位。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/29jjRZAGimcAAAAAQOAAAAgADiiDAQFr/original', link: 'https://qoder.cn/' },
   { name: 'QMuse', description: 'QMuse 是支付宝旗下的 AI 原生生产力平台，融合自然语言与多模态生成能力，支持PC/移动双端低门槛创作网页/小程序/PPT 等多类型产物，出品即精品、产物即交付', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/IKacQ4qV_ocAAAAARBAAAAgADiiDAQFr/original', link: 'https://qmuse.cn/' },
   { name: '画眉', description: 'AI Native 创意生产平台，全面助力 超级个体 和 业务 快速生产高质量的图片、动效、视频、UI，用好创意驱动业务增长。过去一年累计完成 3.6 亿次生成。', logo: 'https://mdn.alipayobjects.com/huamei_9ip1jn/afts/img/A*tyd5RKlUt5IAAAAAAAAAAAAADn95AQ/original', link: 'https://idesign.alipay.com/' },
-  { name: '千问办公', description: '千问办公是阿里巴巴全新推出的一站式 AI 办公平台。当前深度融入钉钉生态，实现与钉钉功能体系的无缝衔接；未来将进一步打通企业数据库及主流 åIM 工具，构建更广泛的连接能力。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/DzCTTra6k4MAAAAAQFAAAAgADiiDAQFr/original', link: 'https://qwenwork.cn' },
-  // { name: 'Qoder', description: 'Qoder 是一个面向真实工作的 Agentic 平台，将 AI 带入软件开发、终端工作流、云端托管执行、日常办公和持续运行的数字岗位。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/29jjRZAGimcAAAAAQOAAAAgADiiDAQFr/original', link: 'https://qoder.cn/' },
   { name: '哆啦', description: '意图发生，供给抵达。哆啦是面向消费金融场景的 AI Native 生产与经营平台，围绕用户意图，连接需求理解、服务生成与按需交付，让合适的服务在用户需要时抵达。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/KHScQqyLEFAAAAAAQKAAAAgADiiDAQFr/original', link: '' }, // link: 'https://dora.antgroup.com' 
 ]
 

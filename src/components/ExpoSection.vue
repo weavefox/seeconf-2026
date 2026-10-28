@@ -23,7 +23,13 @@ import { exhibitions } from '../data.js'
           <div class="expo-card-overlay">
             <div class="expo-card-top">
               <span class="expo-icon">
-                <img v-if="item.logo" :src="item.logo" :alt="item.name" class="expo-logo" />
+                <img
+                  v-if="item.logo"
+                  :src="item.logo"
+                  :alt="item.name"
+                  class="expo-logo"
+                  :style="item.logoHeight ? { height: `${item.logoHeight}px` } : null"
+                />
                 <svg v-else viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                   <path :d="icons[index % icons.length]" />
                 </svg>
