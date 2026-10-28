@@ -20,7 +20,7 @@ export const navItems = [
   { label: '参会指南', anchor: 'guide' },
 ]
 
-// 专场列表
+// 专题列表
 export const sessions = [
   {
     id: 'main',
@@ -31,55 +31,55 @@ export const sessions = [
   },
   {
     id: 'ai-experience',
-    name: '分会场',
+    name: '专题',
     subtitle: 'AI 创新体验',
     color: '#0f83d3',
   },
   {
     id: 'ai-engineering',
-    name: '分会场',
+    name: '专题',
     subtitle: '卓越 AI 工程实践',
     color: '#12a7df',
   },
   {
     id: 'ai-interaction',
-    name: '分会场',
+    name: '专题',
     subtitle: 'AI 新交互与多端',
     color: '#29bae5',
   },
   {
     id: 'see-next',
-    name: '分会场',
+    name: '专题',
     subtitle: 'SEE Next',
     color: '#f3584c',
   },
   {
     id: 'tech-infra',
-    name: '分会场',
+    name: '专题',
     subtitle: '技术基础设施',
     color: '#0a5fa5',
   },
   {
     id: 'design-system',
-    name: '分会场',
+    name: '专题',
     subtitle: '设计体系与体验',
     color: '#12a7df',
   },
   {
     id: 'data-viz',
-    name: '分会场',
+    name: '专题',
     subtitle: '数据可视化',
     color: '#f39c8c',
   },
   {
     id: 'dev-efficiency',
-    name: '分会场',
+    name: '专题',
     subtitle: '研发效能',
     color: '#29bae5',
   },
   {
     id: 'open-source',
-    name: '分会场',
+    name: '专题',
     subtitle: '开源生态',
     color: '#0f83d3',
   },
@@ -178,9 +178,9 @@ export const mainAgenda = [
   {
     time: '10:00 - 10:30',
     title: '出品人开场',
-    speaker: '各专场出品人',
+    speaker: '各专题出品人',
     company: '蚂蚁集团',
-    description: '五大平行专场主题与亮点预告，帮助参会者选择感兴趣的分会场',
+    description: '五大平行专题亮点预告，帮助参会者选择感兴趣的专题',
   },
   {
     time: '10:30 - 11:30',
@@ -229,7 +229,7 @@ export const mainAgenda = [
   },
 ]
 
-// 各分会场日程
+// 各专题日程
 export const sessionAgenda = {
   'ai-coding': [
     { time: '13:30 - 14:00', title: 'AI 代码生成的质量保障体系', speaker: '张明', company: '蚂蚁集团', description: '如何构建 AI 生成代码的质量评估与保障机制' },
@@ -299,14 +299,14 @@ export const specialGuests = [
 // 出品人
 export const producers = [
   { name: '李俊奎', title: '支付宝技术部负责人', company: '蚂蚁集团', session: '大会总出品人' },
-  { name: '翁欣旦', title: '终端技术委员会负责人', company: '蚂蚁集团', session: '终端技术专场出品人' },
-  { name: '徐达峰', title: '平台体验技术部负责人', company: '蚂蚁集团', session: 'AI Coding 专场出品人' },
-  { name: '朱兴民', title: '支付宝前端平台负责人', company: '蚂蚁集团', session: '基础前端专场出品人' },
+  { name: '翁欣旦', title: '终端技术委员会负责人', company: '蚂蚁集团', session: '终端技术专题出品人' },
+  { name: '徐达峰', title: '平台体验技术部负责人', company: '蚂蚁集团', session: 'AI Coding 专题出品人' },
+  { name: '朱兴民', title: '支付宝前端平台负责人', company: '蚂蚁集团', session: '基础前端专题出品人' },
 ]
 
 // 特色展台
 export const exhibitions = [
-  { name: '蚂蚁阿福', description: '你的 AI 医生朋友。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Q86OQ455uroAAAAAS2AAAAgADiiDAQFr/256w_256h', link: '' },
+  { name: '蚂蚁阿福', description: '你的 AI 健康朋友。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Q86OQ455uroAAAAAS2AAAAgADiiDAQFr/256w_256h', link: '' },
   { name: '灵光', description: '灵光，能管事的个人助理。', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Ffu4QKE_p6EAAAAAgCAAAAgADiiDAQFr/original', link: 'https://www.lingguang.com/' },
   { name: '百灵', description: '为真实世界而生的开放智能。Open intelligence for the real-world.', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/lXz6Safe1GcAAAAAQWAAAAgADiiDAQFr/original', link: 'https://www.ant-ling.com/' },
   { name: 'AI 付', description: '以创新的 AI 支付助力AI时代。Powering the AI Era with Innovative AI Payments.', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/JwfPSq2DBxQAAAAAQFAAAAgADiiDAQFr/original', link: 'https://aipay.alipay.com/' },
