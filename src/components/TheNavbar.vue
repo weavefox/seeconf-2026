@@ -3,11 +3,13 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { navItems, conferenceInfo, pastConferences } from '../data.js'
 
 const scrolled = ref(false)
+const pastFirstScreen = ref(false)
 const mobileMenuOpen = ref(false)
 const pastDropdownOpen = ref(false)
 
 const handleScroll = () => {
   scrolled.value = window.scrollY > 60
+  pastFirstScreen.value = window.scrollY > window.innerHeight * 0.8
 }
 
 const scrollTo = (anchor) => {
@@ -26,19 +28,29 @@ const closePastDropdown = () => {
   pastDropdownOpen.value = false
 }
 
+// 点击导航栏外部时收起移动端菜单
+const navbarRef = ref(null)
+const handleOutsideClick = (e) => {
+  if (mobileMenuOpen.value && navbarRef.value && !navbarRef.value.contains(e.target)) {
+    mobileMenuOpen.value = false
+  }
+}
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   document.addEventListener('click', closePastDropdown)
+  document.addEventListener('click', handleOutsideClick)
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
   document.removeEventListener('click', closePastDropdown)
+  document.removeEventListener('click', handleOutsideClick)
 })
 </script>
 
 <template>
-  <header class="navbar" :class="{ scrolled }">
+  <header ref="navbarRef" class="navbar" :class="{ scrolled }">
     <div class="navbar-inner">
       <div class="logo">
         <img class="logo-img" src="https://mdn.alipayobjects.com/huamei_m96plz/afts/img/9_q5Rp7HjuMAAAAAQSAAAAgADiiDAQFr/original" alt="SEE Conf 2026" />
@@ -82,11 +94,27 @@ onUnmounted(() => {
         </div>
       </nav>
 
+      <a
+        class="nav-buy-btn"
+        :class="{ show: pastFirstScreen }"
+        href="https://www.bagevent.com/event/SEEConf2026"
+        target="_blank"
+        rel="noopener"
+      >立即购票<span class="nav-btn-arrow">↗</span></a>
+
       <button class="mobile-toggle" @click="mobileMenuOpen = !mobileMenuOpen">
         <span></span>
         <span></span>
         <span></span>
       </button>
+
+      <a
+        class="nav-buy-btn-mobile"
+        :class="{ show: pastFirstScreen }"
+        href="https://www.bagevent.com/event/SEEConf2026"
+        target="_blank"
+        rel="noopener"
+      >立即购票<span class="nav-btn-arrow">↗</span></a>
     </div>
   </header>
 </template>
@@ -268,6 +296,47 @@ onUnmounted(() => {
   background: rgba(0, 0, 0, 0.04);
 }
 
+.nav-buy-btn {
+  max-width: 0;
+  margin-left: 0;
+  padding: 0;
+  overflow: hidden;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  background: #1a1a1a;
+  border-radius: 48px;
+  white-space: nowrap;
+  text-decoration: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: max-width 0.3s ease, margin-left 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-buy-btn.show {
+  max-width: 200px;
+  margin-left: 20px;
+  padding: 7px 22px;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-buy-btn:hover {
+  background: #333;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.nav-btn-arrow {
+  margin-left: 2px;
+  font-size: 12px;
+}
+
+/* 移动端购票按钮（汉堡旁），桌面端隐藏 */
+.nav-buy-btn-mobile {
+  display: none;
+}
+
 .mobile-toggle {
   margin-left: 16px;
   display: none;
@@ -290,6 +359,10 @@ onUnmounted(() => {
     padding: 0 16px;
   }
 
+  .navbar::after {
+    display: none;
+  }
+
   .logo-img {
     height: 22px;
   }
@@ -301,7 +374,7 @@ onUnmounted(() => {
     right: 0;
     flex-direction: column;
     gap: 0;
-    background: rgba(255, 255, 255, 0.86);
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(24px) saturate(1.4);
     -webkit-backdrop-filter: blur(24px) saturate(1.4);
     padding: 0;
@@ -399,6 +472,44 @@ onUnmounted(() => {
   .mobile-toggle {
     display: flex;
     margin-left: auto;
+  }
+
+  .nav-buy-btn {
+    display: none;
+  }
+
+  .nav-buy-btn-mobile {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    max-width: 0;
+    margin-left: 0;
+    padding: 0;
+    overflow: hidden;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.72);
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 48px;
+    white-space: nowrap;
+    text-decoration: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-width 0.3s ease, margin-left 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+  }
+
+  .nav-buy-btn-mobile.show {
+    max-width: 120px;
+    margin-left: 8px;
+    padding: 4px 12px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-buy-btn-mobile:hover {
+    color: #000;
+    border-color: rgba(0, 0, 0, 0.2);
   }
 }
 </style>
