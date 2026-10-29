@@ -128,7 +128,7 @@ export const specialGuests = [
     nickname: '圆心',
     title: '阿里国际 · AliExpress CTO',
     avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/aBCqS6Aod14AAAAAUjAAAAgADiiDAQFr/original',
-    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/8wSKQJd5Zg0AAAAARsAAAAgADiiDAQFr/original'
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/My63RoF3vQ0AAAAAVTAAAAgADiiDAQFr/original'
   },
   {
     name: '郭虹宇',
