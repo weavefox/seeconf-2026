@@ -124,7 +124,7 @@ const selectSession = (id) => {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 16px;
-  margin-bottom: 48px;
+  /* margin-bottom: 48px; */
 }
 
 .session-card {
@@ -337,7 +337,11 @@ const selectSession = (id) => {
 @media (max-width: 1024px) {
   .session-cards { grid-template-columns: repeat(3, 1fr); }
   .session-card { aspect-ratio: 1; }
-  .session-subtitle { font-size: 16px; }
+  .session-card-overlay { padding: 16px 12px 32px; }
+  .session-type { font-size: 18px; }
+  .session-subtitle { font-size: 24px; }
+  .producers-label { font-size: 15px; padding: 2px 6px; }
+  .producers-names { font-size: 16px; }
 }
 
 @media (max-width: 768px) {
@@ -345,11 +349,11 @@ const selectSession = (id) => {
   .section-title { font-size: 40px; }
   .session-cards { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .session-card { aspect-ratio: 3 / 4; }
-  .session-card-overlay { padding: 14px 10px 28px; }
-  .session-type { font-size: 12px; }
-  .session-subtitle { font-size: 15px; margin-bottom: 6px; }
-  .producers-label { font-size: 10px; padding: 1px 4px; }
-  .producers-names { font-size: 11px; }
+  .session-card-overlay { padding: 14px 10px 44px; }
+  .session-type { font-size: 14px; }
+  .session-subtitle { font-size: 19px; margin-bottom: 6px; }
+  .producers-label { font-size: 12px; padding: 2px 5px; }
+  .producers-names { font-size: 13px; }
   .timeline-item {
     flex-direction: column;
     align-items: flex-start;
@@ -364,11 +368,11 @@ const selectSession = (id) => {
   .section-title { font-size: 30px; }
   .session-cards { grid-template-columns: repeat(2, 1fr); gap: 8px; }
   .session-card { aspect-ratio: 3 / 4; }
-  .session-card-overlay { padding: 12px 8px 20px; }
-  .session-type { font-size: 11px; }
-  .session-subtitle { font-size: 13px; margin-bottom: 4px; }
-  .producers-label { font-size: 9px; padding: 1px 3px; }
-  .producers-names { font-size: 10px; }
+  .session-card-overlay { padding: 12px 8px 36px; }
+  .session-type { font-size: 13px; }
+  .session-subtitle { font-size: 17px; margin-bottom: 5px; }
+  .producers-label { font-size: 11px; padding: 1px 4px; }
+  .producers-names { font-size: 12px; }
   .session-card.active {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   }
