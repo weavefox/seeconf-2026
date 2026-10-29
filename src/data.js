@@ -28,60 +28,35 @@ export const sessions = [
     subtitle: '创造力复兴',
     isLive: true,
     color: '#f3584c',
+    producers: ['达峰'],
   },
   {
     id: 'ai-experience',
     name: '专题',
     subtitle: 'AI 创新体验',
     color: '#0f83d3',
+    producers: ['韵锦', '勾玉'],
   },
   {
     id: 'ai-engineering',
     name: '专题',
     subtitle: '卓越 AI 工程实践',
     color: '#12a7df',
+    producers: ['云谦', '明是'],
   },
   {
     id: 'ai-interaction',
     name: '专题',
     subtitle: 'AI 新交互与多端',
     color: '#29bae5',
+    producers: ['竹光', '祯逸'],
   },
   {
     id: 'see-next',
     name: '专题',
     subtitle: 'SEE Next',
     color: '#f3584c',
-  },
-  {
-    id: 'tech-infra',
-    name: '专题',
-    subtitle: '技术基础设施',
-    color: '#0a5fa5',
-  },
-  {
-    id: 'design-system',
-    name: '专题',
-    subtitle: '设计体系与体验',
-    color: '#12a7df',
-  },
-  {
-    id: 'data-viz',
-    name: '专题',
-    subtitle: '数据可视化',
-    color: '#f39c8c',
-  },
-  {
-    id: 'dev-efficiency',
-    name: '专题',
-    subtitle: '研发效能',
-    color: '#29bae5',
-  },
-  {
-    id: 'open-source',
-    name: '专题',
-    subtitle: '开源生态',
-    color: '#0f83d3',
+    producers: ['鲁直', '达峰'],
   },
 ]
 
@@ -116,36 +91,6 @@ export const agendaData = {
     { time: '14:00 - 14:30', title: '技术驱动下的体验进化', description: '前沿技术如何驱动用户体验的持续进化', speaker: '朱兴民', speakerTitle: '蚂蚁集团 支付宝前端平台负责人' },
     { time: '14:30 - 15:00', title: '创意编程与生成艺术的探索', description: '用代码创造视觉艺术的前沿实践', speaker: '林晓', speakerTitle: '蚂蚁集团 创意编程专家' },
     { time: '15:00 - 15:30', title: '圆桌对话：体验技术的下一个十年', description: '讲者圆桌讨论，共话体验技术的未来方向', speaker: '全体讲者', speakerTitle: '' },
-  ],
-  'tech-infra': [
-    { time: '13:30 - 14:00', title: '微前端架构的演进与实践', description: '蚂蚁微前端体系从 qiankun 到新一代架构的演进', speaker: '赵利超', speakerTitle: '蚂蚁集团 支付宝终端基础技术负责人' },
-    { time: '14:00 - 14:30', title: '构建工具链的性能优化之路', description: '从 Webpack 到 Rspack，构建工具的性能突破', speaker: '吴峰', speakerTitle: '蚂蚁集团 可视化技术负责人' },
-    { time: '14:30 - 15:00', title: '前端性能监控与优化实战', description: '从指标到优化，前端性能全链路监控实践', speaker: '郑凯', speakerTitle: '蚂蚁集团 端智能技术专家' },
-    { time: '15:00 - 15:30', title: '圆桌对话：基础设施的支撑力量', description: '探讨前端基础设施如何支撑大规模业务', speaker: '全体讲者', speakerTitle: '' },
-  ],
-  'design-system': [
-    { time: '13:30 - 14:00', title: '设计系统的规模化落地', description: 'Ant Design 设计系统的企业级落地经验', speaker: '朱兴民', speakerTitle: '蚂蚁集团 支付宝前端平台负责人' },
-    { time: '14:00 - 14:30', title: '设计	Token 驱动的主题体系', description: '基于 Design Token 的多主题管理与切换方案', speaker: '王芳', speakerTitle: '蚂蚁集团 设计系统专家' },
-    { time: '14:30 - 15:00', title: '组件库的无障碍实践', description: '从 ARIA 到键盘导航，构建可访问性组件体系', speaker: '周杰', speakerTitle: '蚂蚁集团 前端性能专家' },
-    { time: '15:00 - 15:30', title: '圆桌对话：设计系统的可持续演进', description: '探讨设计系统在大型组织中的长期维护与迭代', speaker: '全体讲者', speakerTitle: '' },
-  ],
-  'data-viz': [
-    { time: '13:30 - 14:00', title: '大数据可视化的性能突破', description: '百万级数据点的高性能渲染方案', speaker: '吴峰', speakerTitle: '蚂蚁集团 可视化技术负责人' },
-    { time: '14:00 - 14:30', title: '3D 交互体验设计实践', description: 'Web 端 3D 交互体验的技术与设计融合', speaker: '党宇航', speakerTitle: 'Tripo VAST 产品研发负责人' },
-    { time: '14:30 - 15:00', title: '数据驱动的动效设计', description: '从数据到动效，构建数据驱动的交互体验', speaker: '黄琪', speakerTitle: '蚂蚁集团 动效设计专家' },
-    { time: '15:00 - 15:30', title: '圆桌对话：可视化的艺术与工程', description: '探讨数据可视化中艺术表达与工程实现的平衡', speaker: '全体讲者', speakerTitle: '' },
-  ],
-  'dev-efficiency': [
-    { time: '13:30 - 14:00', title: 'AI 驱动的代码搜索与推荐', description: '基于大模型的智能代码搜索与推荐系统', speaker: '叶震杰', speakerTitle: 'ZenMux.ai Co-Founder' },
-    { time: '14:00 - 14:30', title: '端智能：从云到端的 AI 落地', description: '端侧 AI 推理优化与工程实践', speaker: '郑凯', speakerTitle: '蚂蚁集团 端智能技术专家' },
-    { time: '14:30 - 15:00', title: '从 CI 到 CD 的全链路效能提升', description: '持续集成与持续交付的工程化最佳实践', speaker: '刘洋', speakerTitle: '蚂蚁集团 工程效能专家' },
-    { time: '15:00 - 15:30', title: '圆桌对话：研发效能的度量与提升', description: '如何科学度量研发效能并持续改进', speaker: '全体讲者', speakerTitle: '' },
-  ],
-  'open-source': [
-    { time: '13:30 - 14:00', title: '开源生态与体验技术的融合发展', description: '蚂蚁开源生态建设经验与未来方向', speaker: '江波', speakerTitle: '蚂蚁集团 开源技术增长负责人' },
-    { time: '14:00 - 14:30', title: '从 Ant Design 到开源设计语言', description: '企业级 UI 设计语言的开源历程与社区运营', speaker: '朱兴民', speakerTitle: '蚂蚁集团 支付宝前端平台负责人' },
-    { time: '14:30 - 15:00', title: '微前端框架 qiankun 的开源实践', description: 'qiankun 社区运营、版本演进与未来规划', speaker: '赵利超', speakerTitle: '蚂蚁集团 支付宝终端基础技术负责人' },
-    { time: '15:00 - 15:30', title: '圆桌对话：开源的可持续之路', description: '探讨企业主导开源项目的可持续发展模式', speaker: '全体讲者', speakerTitle: '' },
   ],
 }
 
