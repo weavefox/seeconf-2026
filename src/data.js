@@ -179,10 +179,17 @@ export const specialGuests = [
     avatarRed: ''
   },
   {
+    name: '郑叶飞',
+    nickname: '圆心',
+    title: '阿里国际 · AliExpress CTO',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/aBCqS6Aod14AAAAAUjAAAAgADiiDAQFr/original',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/8wSKQJd5Zg0AAAAARsAAAAgADiiDAQFr/original'
+  },
+  {
     name: '郭虹宇',
     nickname: '老郭',
     title: '淘天集团 · 淘宝终端技术负责人',
-    avatarBlue: '',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/z_12Q7JUxhoAAAAAReAAAAgADiiDAQFr/original',
     avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/Nl0jSLG5oRIAAAAAVjAAAAgADiiDAQFr/original'
   },
   {
@@ -191,13 +198,6 @@ export const specialGuests = [
     title: '蚂蚁集团 · 支付宝 AI 创新产品中心负责人',
     avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/AEw4R6TeJz8AAAAAT4AAAAgADiiDAQFr/original',
     avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/2wYgTIWsUMkAAAAAReAAAAgADiiDAQFr/original'
-  },
-  {
-    name: '郑叶飞',
-    nickname: '圆心',
-    title: '阿里国际 · AliExpress CTO',
-    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/aBCqS6Aod14AAAAAUjAAAAgADiiDAQFr/original',
-    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/AMtSS44hacEAAAAAU-AAAAgADiiDAQFr/original'
   },
   {
     name: '王保平',
