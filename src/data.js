@@ -251,7 +251,7 @@ export const partners = [
 
 // 往届回顾
 export const pastConferences = [
-  { year: '2025', url: 'https://seeconf2025.alipay.com/' },
+  { year: '2025', url: 'https://seeconf2025.antgroup.com/' },
   { year: '2022', url: 'https://seeconf2022.alipay.com/' },
   { year: '2021', url: 'https://seeconf2021.antfin.com/' },
   { year: '2020', url: 'http://seeconf2020.antfin.com/' },
