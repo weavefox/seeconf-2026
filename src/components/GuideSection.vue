@@ -115,7 +115,7 @@ const transportInfo = [
 
 <style scoped>
 .guide {
-  padding: 100px 0 48px;
+  padding: 48px 0;
   background: #fff;
 }
 

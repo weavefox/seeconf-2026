@@ -22,25 +22,27 @@ import { exhibitions } from '../data.js'
         >
           <div class="expo-card-overlay">
             <div class="expo-card-top">
-              <span class="expo-icon">
-                <img
-                  v-if="item.logo"
-                  :src="item.logo"
-                  :alt="item.name"
-                  class="expo-logo"
-                  :style="item.logoHeight ? { height: `${item.logoHeight}px` } : null"
-                />
-                <svg v-else viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path :d="icons[index % icons.length]" />
-                </svg>
-              </span>
+              <div class="expo-brand">
+                <span class="expo-icon">
+                  <img
+                    v-if="item.logo"
+                    :src="item.logo"
+                    :alt="item.name"
+                    class="expo-logo"
+                    :style="item.logoHeight ? { height: `${item.logoHeight}px` } : null"
+                  />
+                  <svg v-else viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path :d="icons[index % icons.length]" />
+                  </svg>
+                </span>
+                <h3 class="expo-name">{{ item.name }}</h3>
+              </div>
               <span v-if="item.link" class="expo-arrow" aria-label="查看更多">
                 <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <path d="M7 17L17 7M17 7H7M17 7v10" />
                 </svg>
               </span>
             </div>
-            <h3 class="expo-name">{{ item.name }}</h3>
             <p class="expo-desc">{{ item.description }}</p>
           </div>
         </component>
@@ -108,7 +110,13 @@ import { exhibitions } from '../data.js'
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+}
+
+.expo-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .expo-icon {
@@ -151,7 +159,7 @@ import { exhibitions } from '../data.js'
   font-size: 20px;
   font-weight: 700;
   color: var(--color-text);
-  margin: 0 0 6px;
+  margin: 0;
 }
 
 .expo-desc {
