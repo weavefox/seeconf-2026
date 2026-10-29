@@ -121,13 +121,13 @@ const selectSession = (id) => {
 
 /* 专题卡片（5张平铺） */
 .session-cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
   gap: 16px;
   margin-bottom: 48px;
 }
 
 .session-card {
-  flex: 1;
   aspect-ratio: 3 / 4;
   border-radius: 20px;
   background-size: cover;
@@ -335,6 +335,7 @@ const selectSession = (id) => {
 }
 
 @media (max-width: 1024px) {
+  .session-cards { grid-template-columns: repeat(3, 1fr); }
   .session-card { aspect-ratio: 1; }
   .session-subtitle { font-size: 16px; }
 }
@@ -342,13 +343,13 @@ const selectSession = (id) => {
 @media (max-width: 768px) {
   .agenda { padding: 60px 0; }
   .section-title { font-size: 40px; }
-  .session-cards { gap: 10px; }
+  .session-cards { grid-template-columns: repeat(2, 1fr); gap: 10px; }
   .session-card { aspect-ratio: 3 / 4; }
-  .session-card-overlay { padding: 14px 10px; }
-  .session-type { font-size: 13px; }
-  .session-subtitle { font-size: 16px; }
-  .producers-label { font-size: 11px; padding: 1px 4px; }
-  .producers-names { font-size: 12px; }
+  .session-card-overlay { padding: 14px 10px 28px; }
+  .session-type { font-size: 12px; }
+  .session-subtitle { font-size: 15px; margin-bottom: 6px; }
+  .producers-label { font-size: 10px; padding: 1px 4px; }
+  .producers-names { font-size: 11px; }
   .timeline-item {
     flex-direction: column;
     align-items: flex-start;
@@ -361,6 +362,15 @@ const selectSession = (id) => {
 
 @media (max-width: 480px) {
   .section-title { font-size: 30px; }
-  .session-subtitle { font-size: 14px; }
+  .session-cards { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .session-card { aspect-ratio: 3 / 4; }
+  .session-card-overlay { padding: 12px 8px 20px; }
+  .session-type { font-size: 11px; }
+  .session-subtitle { font-size: 13px; margin-bottom: 4px; }
+  .producers-label { font-size: 9px; padding: 1px 3px; }
+  .producers-names { font-size: 10px; }
+  .session-card.active {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
 }
 </style>

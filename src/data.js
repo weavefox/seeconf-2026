@@ -13,7 +13,7 @@ export const conferenceInfo = {
 
 export const navItems = [
   // { label: '分享嘉宾', anchor: 'speakers' },
-  // { label: '会议议程', anchor: 'agenda' },
+  { label: '会议议程', anchor: 'agenda' },
   { label: '特邀嘉宾', anchor: 'guests' },
   { label: '特色展台', anchor: 'expo' },
   { label: '参会指南', anchor: 'guide' },
@@ -158,6 +158,13 @@ export const specialGuests = [
     avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/o0bkSYCqwhsAAAAAT5AAAAgADiiDAQFr/original',
     avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/6OiZQ7eDyMUAAAAAUqAAAAgADiiDAQFr/original'
   },
+  // {
+  //   name: '徐达峰',
+  //   nickname: '达峰',
+  //   title: '蚂蚁集团 · 平台体验技术负责人',
+  //   avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/o0bkSYCqwhsAAAAAT5AAAAgADiiDAQFr/original',
+  //   avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/6OiZQ7eDyMUAAAAAUqAAAAgADiiDAQFr/original'
+  // },
   {
     name: '王姣',
     nickname: '杜素',
