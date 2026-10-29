@@ -237,7 +237,7 @@ export const specialGuests = [
   {
     name: '王卓',
     nickname: '完颜',
-    title: '消费金融 · 新体验技术部负责人',
+    title: '蚂蚁集团 · 消费金融新体验技术部负责人',
     avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/HZHJR5D4guQAAAAATsAAAAgADiiDAQFr/original',
     avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/_FXqR6AQLUYAAAAAUDAAAAgADiiDAQFr/original'
   },
