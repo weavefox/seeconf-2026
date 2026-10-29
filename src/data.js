@@ -249,8 +249,8 @@ export const specialGuests = [
     avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/wSP0Q6m_ALkAAAAARhAAAAgADiiDAQFr/original'
   },
   {
-    name: '偏右',
-    nickname: '朱兴民',
+    name: '朱兴民',
+    nickname: '偏右',
     title: '蚂蚁集团 · 阿宝产品评测负责人',
     avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/dCTHSqpNwAUAAAAAT5AAAAgADiiDAQFr/original',
     avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/AJZERKSeXDUAAAAAUPAAAAgADiiDAQFr/original'
