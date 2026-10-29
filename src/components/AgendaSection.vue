@@ -6,10 +6,18 @@ const activeSession = ref('main')
 
 const avatarRed = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/IKJ3RJtJL_QAAAAAQmAAAAgADiiDAQFr/original'
 const avatarBlue = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/iL5aSretd-wAAAAAQbAAAAgADiiDAQFr/original'
-const sessionCardBg = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/kJUaRo3LirwAAAAAQPAAAAgADiiDAQFr/original'
+
+const mainCardBg = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/YnoYS6mJZPQAAAAASrAAAAgADiiDAQFr/original'
+const topicCardBg1 = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/HJEzSZLc6v8AAAAASeAAAAgADiiDAQFr/original'
+const topicCardBg2 = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/h4MnT4QBTVcAAAAAREAAAAgADiiDAQFr/original'
 
 const getAvatar = (index) => {
   return index % 2 === 0 ? avatarBlue : avatarRed
+}
+
+const getCardBg = (index) => {
+  if (index === 0) return mainCardBg
+  return (index - 1) % 2 === 0 ? topicCardBg1 : topicCardBg2
 }
 
 const currentAgenda = computed(() => {
@@ -18,28 +26,6 @@ const currentAgenda = computed(() => {
 
 const selectSession = (id) => {
   activeSession.value = id
-}
-
-const sessionSliderRef = ref(null)
-const sliderProgress = ref(0)
-const sliderRatio = ref(0)
-
-const updateSliderProgress = () => {
-  const el = sessionSliderRef.value
-  if (!el) return
-  const maxScroll = el.scrollWidth - el.clientWidth
-  sliderProgress.value = maxScroll > 0 ? (el.scrollLeft / maxScroll) * 100 : 0
-  sliderRatio.value = maxScroll > 0 ? el.clientWidth / el.scrollWidth : 1
-}
-
-const onSliderScroll = () => {
-  updateSliderProgress()
-}
-
-const scrollSessionsNext = () => {
-  if (sessionSliderRef.value) {
-    sessionSliderRef.value.scrollBy({ left: 560, behavior: 'smooth' })
-  }
 }
 </script>
 
@@ -51,39 +37,28 @@ const scrollSessionsNext = () => {
         <h2 class="section-title">会议议程</h2>
       </div>
 
-      <!-- 专题卡片选择 + 右箭头 -->
-      <div class="session-wrapper">
-        <div ref="sessionSliderRef" class="session-cards" @scroll="onSliderScroll">
-          <div
-            v-for="session in sessions"
-            :key="session.id"
-            class="session-card"
-            :class="{ active: activeSession === session.id }"
-            :style="{ backgroundImage: `url(${sessionCardBg})` }"
-            @click="selectSession(session.id)"
-          >
-            <div class="session-card-overlay">
-              <p class="session-type">{{ session.name }}</p>
-              <h3 class="session-subtitle">{{ session.subtitle }}</h3>
-            </div>
+      <!-- 专题卡片（5张平铺） -->
+      <div class="session-cards">
+        <div
+          v-for="(session, index) in sessions"
+          :key="session.id"
+          class="session-card"
+          :class="{ active: activeSession === session.id }"
+          :style="{ backgroundImage: `url(${getCardBg(index)})` }"
+          @click="selectSession(session.id)"
+        >
+          <div class="session-card-overlay">
+            <p class="session-type">{{ session.name }}</p>
+            <h3 class="session-subtitle">{{ session.subtitle }}</h3>
+            <p class="session-producers">
+              <span class="producers-label">出品人</span>
+              <span class="producers-names">{{ session.producers.join(' / ') }}</span>
+            </p>
           </div>
         </div>
-        <div class="slider-indicator">
-          <div class="slider-track">
-            <div
-              class="slider-thumb"
-              :style="{ left: `${sliderProgress * (1 - sliderRatio)}%`, width: `${sliderRatio * 100}%` }"
-            ></div>
-          </div>
-        </div>
-        <button class="session-arrow" @click="scrollSessionsNext" aria-label="向右滚动">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="m9 18 6-6-6-6" />
-          </svg>
-        </button>
       </div>
 
-      <!-- 纵向 timeline 议程列表 -->
+      <!-- 纵向 timeline 议程列表
       <div class="timeline">
         <div class="timeline-line"></div>
         <div
@@ -111,7 +86,7 @@ const scrollSessionsNext = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 </template>
@@ -144,30 +119,16 @@ const scrollSessionsNext = () => {
   text-align: left;
 }
 
-/* 专题卡片 + 箭头 */
-.session-wrapper {
-  position: relative;
-  margin-bottom: 48px;
-}
-
+/* 专题卡片（5张平铺） */
 .session-cards {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 4px 4px 8px;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-.session-cards::-webkit-scrollbar {
-  display: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  /* margin-bottom: 48px; */
 }
 
 .session-card {
-  flex-shrink: 0;
-  width: 300px;
-  aspect-ratio: 1;
+  aspect-ratio: 3 / 4;
   border-radius: 20px;
   background-size: cover;
   background-position: center;
@@ -178,113 +139,88 @@ const scrollSessionsNext = () => {
 }
 
 .session-card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
 .session-card.active {
-  box-shadow: 0 0 0 1px #1a1a1a;
-}
-
-.session-card.active .session-card-overlay {
-  background: rgba(255, 255, 255, 0.85);
-}
-
-.session-card.active .session-type,
-.session-card.active .session-subtitle {
-  color: var(--color-text);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  transform: translateY(-3px);
 }
 
 .session-card-overlay {
   width: 100%;
   height: 100%;
-  padding: 24px 20px;
+  padding: 20px 16px 52px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: flex-start;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(2px);
-  transition: background 0.3s;
+  transition: background 0.3s, backdrop-filter 0.3s;
 }
 
-.session-card:hover .session-card-overlay {
-  background: rgba(255, 255, 255, 0.75);
+.session-card.active .session-card-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.25) 55%, rgba(0, 0, 0, 0) 100%);
+  backdrop-filter: none;
 }
 
-.live-badge {
-  display: inline-block;
-  font-size: 11px;
-  font-weight: 600;
+.session-card:hover:not(.active) .session-card-overlay {
+  background: rgba(255, 255, 255, 0.65);
+}
+
+.session-card.active .session-type,
+.session-card.active .session-subtitle,
+.session-card.active .session-producers {
   color: #fff;
-  background: #f3584c;
-  padding: 2px 8px;
-  border-radius: 6px;
-  margin-bottom: 8px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.session-card.active .producers-label {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+.session-card.active .producers-names {
+  color: #fff;
 }
 
 .session-type {
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: var(--color-text-secondary);
-  margin: 0 0 4px;
+  margin: 0 0 6px;
 }
 
 .session-subtitle {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 700;
   color: var(--color-text);
+  margin: 0 0 10px;
+  line-height: 1.3;
+}
+
+.session-producers {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   margin: 0;
 }
 
-/* 右箭头 */
-.session-arrow {
-  position: absolute;
-  top: 50%;
-  right: -12px;
-  transform: translateY(-50%);
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #1a1a1a;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
-  z-index: 10;
-  border: none;
+.producers-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: rgba(0, 0, 0, 0.06);
+  padding: 2px 6px;
+  border-radius: 4px;
   flex-shrink: 0;
 }
 
-.session-arrow:hover {
-  background: #333;
-  transform: translateY(-50%) scale(1.1);
-}
-
-/* slider 指示器 */
-.slider-indicator {
-  width: 100%;
-  margin-top: 30px;
-}
-
-.slider-track {
-  width: 100%;
-  height: 4px;
-  border-radius: 2px;
-  background: rgba(0, 0, 0, 0.1);
-  position: relative;
-  overflow: hidden;
-}
-
-.slider-thumb {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  border-radius: 2px;
-  background: #1a1a1a;
-  transition: left 0.2s ease, width 0.2s ease;
+.producers-names {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
 }
 
 /* 纵向 timeline */
@@ -398,12 +334,26 @@ const scrollSessionsNext = () => {
   color: var(--color-text-secondary);
 }
 
+@media (max-width: 1024px) {
+  .session-cards { grid-template-columns: repeat(3, 1fr); }
+  .session-card { aspect-ratio: 1; }
+  .session-card-overlay { padding: 16px 12px 32px; }
+  .session-type { font-size: 18px; }
+  .session-subtitle { font-size: 24px; }
+  .producers-label { font-size: 15px; padding: 2px 6px; }
+  .producers-names { font-size: 16px; }
+}
+
 @media (max-width: 768px) {
   .agenda { padding: 60px 0; }
   .section-title { font-size: 40px; }
-  .session-cards { gap: 12px; }
-  .session-card { width: 160px; }
-  .session-arrow { width: 40px; height: 40px; right: -8px; }
+  .session-cards { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .session-card { aspect-ratio: 3 / 4; }
+  .session-card-overlay { padding: 14px 10px 44px; }
+  .session-type { font-size: 14px; }
+  .session-subtitle { font-size: 19px; margin-bottom: 6px; }
+  .producers-label { font-size: 12px; padding: 2px 5px; }
+  .producers-names { font-size: 13px; }
   .timeline-item {
     flex-direction: column;
     align-items: flex-start;
@@ -416,5 +366,15 @@ const scrollSessionsNext = () => {
 
 @media (max-width: 480px) {
   .section-title { font-size: 30px; }
+  .session-cards { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .session-card { aspect-ratio: 3 / 4; }
+  .session-card-overlay { padding: 12px 8px 36px; }
+  .session-type { font-size: 13px; }
+  .session-subtitle { font-size: 17px; margin-bottom: 5px; }
+  .producers-label { font-size: 11px; padding: 1px 4px; }
+  .producers-names { font-size: 12px; }
+  .session-card.active {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
 }
 </style>
