@@ -282,6 +282,7 @@ export const partners = [
   { name: '魔搭社区', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/PZfcSp9US2wAAAAAQHAAAAgADiiDAQFr/fmt.avif', link: 'https://www.modelscope.cn', hideName: true },
   { name: '百灵', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/lXz6Safe1GcAAAAAQWAAAAgADiiDAQFr/fmt.avif', link: 'https://www.ant-ling.com/' },
   { name: 'InfoQ', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/e9eqSpHVRFYAAAAAQJAAAAgADiiDAQFr/fmt.avif', link: 'https://www.infoq.cn', hideName: true },
+  { name: '观猹', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/my9eTaylR4kAAAAAQMAAAAgADiiDAQFr/original', link: 'https://watcha.cn/', hideName: true },
   { name: 'WeaveFox', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/ZAv4TKvxmvYAAAAAQEAAAAgADiiDAQFr/original', link: 'https://www.weavefox.cn' },
   { name: '量子位', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/aKh8RIPWwj8AAAAAQFAAAAgADiiDAQFr/fmt.avif', link: 'https://www.qbitai.com/', hideName: true },
   { name: 'CSDN', logo: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/mm4OSpNGpGUAAAAAQJAAAAgADiiDAQFr/fmt.avif', link: '', hideName: true },
