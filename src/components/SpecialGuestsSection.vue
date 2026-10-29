@@ -1,13 +1,33 @@
 <script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { specialGuests } from '../data.js'
 
-const getAvatar = (index) => {
-  const row = Math.floor(index / 4)
-  const col = index % 4
-  const isBlue = (row + col) % 2 === 0
-  const guest = specialGuests[index]
-  return isBlue ? guest.avatarBlue : guest.avatarRed
+// 跟踪当前栅格列数，移动端 2 列、平板 3 列、桌面 4 列
+const cols = ref(4)
+
+const updateCols = () => {
+  const w = window.innerWidth
+  cols.value = w <= 1024 ? (w <= 768 ? 2 : 3) : 4
 }
+
+const isBlueAvatar = (index) => {
+  const row = Math.floor(index / cols.value)
+  const col = index % cols.value
+  return (row + col) % 2 === 0
+}
+
+const getAvatar = (index) => {
+  const guest = specialGuests[index]
+  return (isBlueAvatar(index) ? guest.avatarBlue : guest.avatarRed) || guest.avatarBlue || guest.avatarRed
+}
+
+onMounted(() => {
+  updateCols()
+  window.addEventListener('resize', updateCols)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', updateCols)
+})
 </script>
 
 <template>
@@ -23,6 +43,7 @@ const getAvatar = (index) => {
           v-for="(guest, index) in specialGuests"
           :key="index"
           class="guest-card"
+          :class="isBlueAvatar(index) ? 'guest-card--blue' : 'guest-card--red'"
         >
           <img
             class="guest-avatar"
@@ -76,7 +97,37 @@ const getAvatar = (index) => {
 }
 
 .guest-card {
-  transition: transform 0.3s;
+  position: relative;
+  transition: transform 0.35s ease;
+}
+
+.guest-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 8%;
+  right: 8%;
+  bottom: 28%;
+  border-radius: 50%;
+  filter: blur(28px);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.guest-card--blue::before {
+  background: radial-gradient(circle, rgba(15, 131, 211, 0.28), transparent 70%);
+}
+
+.guest-card--red::before {
+  background: radial-gradient(circle, rgba(243, 88, 76, 0.28), transparent 70%);
+}
+
+.guest-card:hover::before {
+  opacity: 1;
+  transform: scale(1.08);
 }
 
 .guest-card:hover {
@@ -84,12 +135,20 @@ const getAvatar = (index) => {
 }
 
 .guest-avatar {
-  width: 100%;
+  position: relative;
+  z-index: 1;
   width: 100%;
   aspect-ratio: 3.2/3;
   object-fit: contain;
   display: block;
   border-radius: 20px;
+  filter: drop-shadow(0 4px 0 transparent) saturate(1) contrast(1);
+  transition: filter 0.35s ease, transform 0.35s ease;
+}
+
+.guest-card:hover .guest-avatar {
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.15)) saturate(1.2) contrast(1.05);
+  transform: rotate(-1.5deg);
 }
 
 .guest-name {

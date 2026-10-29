@@ -76,7 +76,7 @@ const navColumns = [
 <style scoped>
 .footer {
   position: relative;
-  padding: 32px 0 32px;
+  padding: 62px 0 32px;
   background: #fff;
   overflow: hidden;
 }
@@ -94,13 +94,6 @@ const navColumns = [
 .container {
   position: relative;
   z-index: 1;
-}
-
-.container::before {
-  content: '';
-  display: block;
-  border-top: 1px solid rgba(18, 18, 18, 0.08);
-  margin-bottom: 48px;
 }
 
 .footer-main {

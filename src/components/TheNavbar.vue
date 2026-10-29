@@ -28,19 +28,29 @@ const closePastDropdown = () => {
   pastDropdownOpen.value = false
 }
 
+// 点击导航栏外部时收起移动端菜单
+const navbarRef = ref(null)
+const handleOutsideClick = (e) => {
+  if (mobileMenuOpen.value && navbarRef.value && !navbarRef.value.contains(e.target)) {
+    mobileMenuOpen.value = false
+  }
+}
+
 onMounted(() => {
   window.addEventListener('scroll', handleScroll)
   document.addEventListener('click', closePastDropdown)
+  document.addEventListener('click', handleOutsideClick)
 })
 
 onUnmounted(() => {
   window.removeEventListener('scroll', handleScroll)
   document.removeEventListener('click', closePastDropdown)
+  document.removeEventListener('click', handleOutsideClick)
 })
 </script>
 
 <template>
-  <header class="navbar" :class="{ scrolled }">
+  <header ref="navbarRef" class="navbar" :class="{ scrolled }">
     <div class="navbar-inner">
       <div class="logo">
         <img class="logo-img" src="https://mdn.alipayobjects.com/huamei_m96plz/afts/img/9_q5Rp7HjuMAAAAAQSAAAAgADiiDAQFr/original" alt="SEE Conf 2026" />
@@ -97,6 +107,14 @@ onUnmounted(() => {
         <span></span>
         <span></span>
       </button>
+
+      <a
+        class="nav-buy-btn-mobile"
+        :class="{ show: pastFirstScreen }"
+        href="https://www.bagevent.com/event/SEEConf2026"
+        target="_blank"
+        rel="noopener"
+      >立即购票<span class="nav-btn-arrow">↗</span></a>
     </div>
   </header>
 </template>
@@ -314,6 +332,11 @@ onUnmounted(() => {
   font-size: 12px;
 }
 
+/* 移动端购票按钮（汉堡旁），桌面端隐藏 */
+.nav-buy-btn-mobile {
+  display: none;
+}
+
 .mobile-toggle {
   margin-left: 16px;
   display: none;
@@ -449,6 +472,44 @@ onUnmounted(() => {
   .mobile-toggle {
     display: flex;
     margin-left: auto;
+  }
+
+  .nav-buy-btn {
+    display: none;
+  }
+
+  .nav-buy-btn-mobile {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    max-width: 0;
+    margin-left: 0;
+    padding: 0;
+    overflow: hidden;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(0, 0, 0, 0.72);
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 48px;
+    white-space: nowrap;
+    text-decoration: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-width 0.3s ease, margin-left 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+  }
+
+  .nav-buy-btn-mobile.show {
+    max-width: 120px;
+    margin-left: 8px;
+    padding: 4px 12px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-buy-btn-mobile:hover {
+    color: #000;
+    border-color: rgba(0, 0, 0, 0.2);
   }
 }
 </style>

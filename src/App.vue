@@ -21,7 +21,7 @@ useHead({
     <main>
       <HeroBanner />
       <!-- <SpeakersSection /> -->
-      <!-- <AgendaSection /> -->
+      <AgendaSection />
       <div class="section-divider"></div>
       <SpecialGuestsSection />
       <div class="section-divider"></div>
@@ -30,6 +30,7 @@ useHead({
       <GuideSection />
       <div class="section-divider"></div>
       <PartnersSection />
+      <div class="section-divider"></div>
     </main>
     <TheFooter />
   </div>
