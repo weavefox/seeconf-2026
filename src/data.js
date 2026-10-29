@@ -235,6 +235,13 @@ export const specialGuests = [
     avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/a6MATKvK0xkAAAAAUTAAAAgADiiDAQFr/original'
   },
   {
+    name: '王卓',
+    nickname: '完颜',
+    title: '消费金融 · 新体验技术部负责人',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/HZHJR5D4guQAAAAATsAAAAgADiiDAQFr/original',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/_FXqR6AQLUYAAAAAUDAAAAgADiiDAQFr/original'
+  },
+  {
     name: '管维刚',
     nickname: '古云',
     title: '网商银行 · 普惠信贷体验技术部负责人',
