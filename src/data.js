@@ -169,7 +169,7 @@ export const specialGuests = [
     name: '王姣',
     nickname: '杜素',
     title: '蚂蚁集团 · 支付宝设计负责人',
-    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/5zdjQaqmrzcAAAAAUiAAAAgADiiDAQFr/original',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/r4_iTYS0OP0AAAAAUjAAAAgADiiDAQFr/original',
     avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/-VTqRbVyF80AAAAAUZAAAAgADiiDAQFr/original'
   },
   {
