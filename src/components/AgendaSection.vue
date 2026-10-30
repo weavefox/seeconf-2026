@@ -80,7 +80,7 @@ const toggleExpand = (index) => {
           :key="session.id"
           class="session-card"
           :class="{ active: activeSession === session.id }"
-          :style="{ backgroundImage: `url(${getCardBg(index)})` }"
+          :style="{ '--card-bg': `url(${getCardBg(index)})` }"
           @click="selectSession(session.id)"
         >
           <div class="session-card-overlay">
@@ -127,7 +127,7 @@ const toggleExpand = (index) => {
               </svg>
             </button>
           </div>
-          <div class="timeline-guest">
+          <div v-if="item.speaker || item.avatarBlue || item.avatarRed" class="timeline-guest">
             <img
               v-if="item.avatarBlue || item.avatarRed"
               class="guest-avatar"
@@ -184,6 +184,7 @@ const toggleExpand = (index) => {
 .session-card {
   aspect-ratio: 3 / 4;
   border-radius: 20px;
+  background-image: var(--card-bg);
   background-size: cover;
   background-position: center;
   cursor: pointer;
@@ -445,34 +446,134 @@ const toggleExpand = (index) => {
 @media (max-width: 768px) {
   .agenda { padding: 60px 0; }
   .section-title { font-size: 40px; }
-  .session-cards { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .session-card { aspect-ratio: 3 / 4; }
-  .session-card-overlay { padding: 14px 10px 44px; }
-  .session-type { font-size: 14px; }
-  .session-subtitle { font-size: 19px; margin-bottom: 6px; }
-  .producers-label { font-size: 12px; padding: 2px 5px; }
-  .producers-names { font-size: 13px; }
+  .session-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .session-card {
+    aspect-ratio: auto;
+    border-radius: 10px;
+    background-image: none;
+    border: 1px solid #e0e0e0;
+  }
+  .session-card:hover {
+    transform: none;
+  }
+  .session-card.active {
+    box-shadow: none;
+    transform: none;
+    border-color: #1a1a1a;
+    background: #1a1a1a;
+  }
+  .session-card.active .session-card-overlay {
+    background: none;
+    backdrop-filter: none;
+  }
+  .session-card-overlay {
+    padding: 10px 8px;
+    background: none;
+    backdrop-filter: none;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .session-type { display: none; }
+  .session-producers { display: none; }
+  .session-subtitle {
+    font-size: 14px;
+    margin: 0;
+    color: var(--color-text);
+    text-align: center;
+  }
+  .session-card.active .session-subtitle {
+    color: #fff;
+    text-shadow: none;
+  }
+  .timeline {
+    padding: 16px 16px 16px 48px;
+  }
+  .timeline-line {
+    left: 24px;
+    top: 20px;
+    bottom: 20px;
+  }
+  .timeline-badge {
+    left: -28px;
+    width: 10px;
+    height: 10px;
+  }
+  .badge-blue, .badge-red {
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
+  }
   .timeline-item {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 8px;
+  }
+  .timeline-time-col {
+    width: auto;
+  }
+  .timeline-time {
+    font-size: 13px;
+  }
+  .timeline-title {
+    font-size: 16px;
+    margin-bottom: 2px;
+  }
+  .timeline-desc {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .desc-toggle {
+    font-size: 12px;
   }
   .timeline-guest {
     width: 100%;
+    gap: 16px;
+  }
+  .guest-avatar {
+    width: 120px;
+    border-radius: 12px;
+  }
+  .guest-meta {
+    width: auto;
+  }
+  .guest-meta strong {
+    font-size: 16px;
+  }
+  .guest-meta span {
+    font-size: 12px;
   }
 }
 
 @media (max-width: 480px) {
   .section-title { font-size: 30px; }
-  .session-cards { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .session-card { aspect-ratio: 3 / 4; }
-  .session-card-overlay { padding: 12px 8px 36px; }
-  .session-type { font-size: 13px; }
-  .session-subtitle { font-size: 17px; margin-bottom: 5px; }
-  .producers-label { font-size: 11px; padding: 1px 4px; }
-  .producers-names { font-size: 12px; }
-  .session-card.active {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  .session-cards {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
   }
+  .session-card { border-radius: 8px; }
+  .session-card-overlay { padding: 8px 6px; }
+  .session-subtitle { font-size: 12px; }
+  .session-card.active {
+    box-shadow: none;
+  }
+  .timeline {
+    padding: 12px 12px 12px 40px;
+  }
+  .timeline-line {
+    left: 20px;
+  }
+  .timeline-badge {
+    left: -24px;
+    width: 8px;
+    height: 8px;
+  }
+  .timeline-time { font-size: 12px; }
+  .timeline-title { font-size: 14px; }
+  .timeline-desc { font-size: 12px; }
+  .guest-avatar { width: 90px; border-radius: 10px; }
+  .guest-meta strong { font-size: 14px; }
+  .guest-meta span { font-size: 11px; }
 }
 </style>
