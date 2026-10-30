@@ -11,21 +11,57 @@ const mainCardBg = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/YnoYS6m
 const topicCardBg1 = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/HJEzSZLc6v8AAAAASeAAAAgADiiDAQFr/original'
 const topicCardBg2 = 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/h4MnT4QBTVcAAAAAREAAAAgADiiDAQFr/original'
 
-const getAvatar = (index) => {
-  return index % 2 === 0 ? avatarBlue : avatarRed
-}
-
 const getCardBg = (index) => {
   if (index === 0) return mainCardBg
   return (index - 1) % 2 === 0 ? topicCardBg1 : topicCardBg2
 }
 
+const globalOffset = computed(() => {
+  let count = 0
+  for (const session of sessions) {
+    if (session.id === activeSession.value) break
+    count += (agendaData[session.id] || []).length
+  }
+  return count
+})
+
 const currentAgenda = computed(() => {
   return agendaData[activeSession.value] || []
 })
 
+const getAvatar = (item, localIndex) => {
+  const isBlue = (globalOffset.value + localIndex) % 2 === 0
+  if (isBlue) {
+    return item.avatarBlue || avatarBlue
+  } else {
+    return item.avatarRed || avatarRed
+  }
+}
+
+const getBadgeClass = (localIndex) => {
+  return (globalOffset.value + localIndex) % 2 === 0 ? 'badge-blue' : 'badge-red'
+}
+
 const selectSession = (id) => {
   activeSession.value = id
+}
+
+const isLongDesc = (item) => item.description && item.description.length >= 100
+
+const expandedItems = ref(new Set())
+const itemKey = (index) => `${activeSession.value}-${index}`
+
+const isExpanded = (index) => expandedItems.value.has(itemKey(index))
+
+const toggleExpand = (index) => {
+  const key = itemKey(index)
+  const newSet = new Set(expandedItems.value)
+  if (newSet.has(key)) {
+    newSet.delete(key)
+  } else {
+    newSet.add(key)
+  }
+  expandedItems.value = newSet
 }
 </script>
 
@@ -58,26 +94,44 @@ const selectSession = (id) => {
         </div>
       </div>
 
-      <!-- 纵向 timeline 议程列表
-      <div class="timeline">
+      <!-- 纵向 timeline 议程列表 -->
+      <div v-if="currentAgenda.length" class="timeline">
         <div class="timeline-line"></div>
         <div
           v-for="(item, index) in currentAgenda"
           :key="index"
           class="timeline-item"
+          :class="{ 'has-desc': isLongDesc(item) }"
         >
-          <span class="timeline-badge" :class="index % 2 === 0 ? 'badge-blue' : 'badge-red'"></span>
-          <div class="timeline-time-col">
+          <span class="timeline-badge" :class="getBadgeClass(index)"></span>
+          <div v-if="item.time" class="timeline-time-col">
             <p class="timeline-time">{{ item.time }}</p>
           </div>
           <div class="timeline-content">
             <h3 class="timeline-title">{{ item.title }}</h3>
-            <p class="timeline-desc">{{ item.description }}</p>
+            <p
+              v-if="item.description"
+              class="timeline-desc"
+              :class="{ expanded: isExpanded(index), 'no-clamp': !isLongDesc(item) }"
+            >{{ item.description }}</p>
+            <button
+              v-if="isLongDesc(item)"
+              class="desc-toggle"
+              @click="toggleExpand(index)"
+            >
+              {{ isExpanded(index) ? '收起' : '详情' }}
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                :style="{ transform: isExpanded(index) ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
           </div>
           <div class="timeline-guest">
             <img
+              v-if="item.avatarBlue || item.avatarRed"
               class="guest-avatar"
-              :src="getAvatar(index)"
+              :src="getAvatar(item, index)"
               alt="嘉宾头像"
             />
             <div class="guest-meta">
@@ -86,7 +140,7 @@ const selectSession = (id) => {
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
   </section>
 </template>
@@ -124,7 +178,7 @@ const selectSession = (id) => {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 16px;
-  /* margin-bottom: 48px; */
+  margin-bottom: 48px;
 }
 
 .session-card {
@@ -226,7 +280,7 @@ const selectSession = (id) => {
 /* 纵向 timeline */
 .timeline {
   position: relative;
-  padding: 12px 40px 12px 72px;
+  padding: 24px 40px 24px 72px;
   border: 1px solid #d0d0d0;
   border-radius: 20px;
 }
@@ -245,6 +299,11 @@ const selectSession = (id) => {
   display: flex;
   align-items: center;
   gap: 40px;
+  padding: 8px 0;
+}
+
+.timeline-item.has-desc {
+  padding: 14px 0;
 }
 
 .timeline-item:not(:last-child) {
@@ -300,6 +359,42 @@ const selectSession = (id) => {
   color: var(--color-text-secondary);
   margin: 0;
   line-height: 1.6;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  transition: -webkit-line-clamp 0.3s, line-clamp 0.3s;
+}
+
+.timeline-desc.no-clamp {
+  -webkit-line-clamp: none;
+  line-clamp: none;
+  overflow: visible;
+}
+
+.timeline-desc.expanded {
+  -webkit-line-clamp: 99;
+  line-clamp: 99;
+}
+
+.desc-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 6px;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.desc-toggle:hover {
+  color: var(--color-text);
 }
 
 .timeline-guest {
@@ -320,6 +415,7 @@ const selectSession = (id) => {
 .guest-meta {
   display: flex;
   flex-direction: column;
+  width: 160px;
 }
 
 .guest-meta strong {
@@ -332,6 +428,8 @@ const selectSession = (id) => {
 .guest-meta span {
   font-size: 14px;
   color: var(--color-text-secondary);
+  display: block;
+  max-width: 100%;
 }
 
 @media (max-width: 1024px) {
