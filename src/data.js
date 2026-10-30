@@ -158,13 +158,13 @@ export const specialGuests = [
     avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/o0bkSYCqwhsAAAAAT5AAAAgADiiDAQFr/original',
     avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/6OiZQ7eDyMUAAAAAUqAAAAgADiiDAQFr/original'
   },
-  // {
-  //   name: '徐达峰',
-  //   nickname: '达峰',
-  //   title: '蚂蚁集团 · 平台体验技术负责人',
-  //   avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/o0bkSYCqwhsAAAAAT5AAAAgADiiDAQFr/original',
-  //   avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/6OiZQ7eDyMUAAAAAUqAAAAgADiiDAQFr/original'
-  // },
+  {
+    name: '徐达峰',
+    nickname: '达峰',
+    title: '蚂蚁集团 · 平台体验技术部负责人',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/fckbRapByFQAAAAAUKAAAAgADiiDAQFr/original',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/VWIITqdL1_oAAAAAUxAAAAgADiiDAQFr/original'
+  },
   {
     name: '王姣',
     nickname: '杜素',
@@ -178,6 +178,13 @@ export const specialGuests = [
     title: '蚂蚁集团 · AI 支付产品总监',
     avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/gUmuQJYf8uoAAAAAWVAAAAgADiiDAQFr/original',
     avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/WDd1R4MiNCIAAAAAUCAAAAgADiiDAQFr/original'
+  },
+  {
+    name: '朱华军',
+    nickname: '阿大',
+    title: 'Qoder · 客户端技术团队负责人',
+    avatarBlue: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/vua7Qr8I_Z4AAAAAUtAAAAgADiiDAQFr/original',
+    avatarRed: 'https://mdn.alipayobjects.com/huamei_m96plz/afts/img/K0kVTIIF97sAAAAAUqAAAAgADiiDAQFr/original'
   },
   {
     name: '舒文亮',
